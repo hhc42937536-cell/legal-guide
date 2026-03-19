@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>法律常識小幫手</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #1C2B4A;
+    --navy2:   #243459;
+    --teal:    #2A6A6A;
+    --teal-lt: #E8F4F4;
+    --teal-md: #C0DCDC;
+    --gold:    #B59A5A;
+    --gold-lt: #F7F2E8;
+    --gold-md: #E8D9B8;
+    --slate:   #4A5568;
+    --muted:   #8896AA;
+    --border:  #DDE3EC;
+    --bg:      #F4F6FA;
+    --white:   #FFFFFF;
+    --red:     #C0392B;
+    --red-lt:  #FDECEA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  .page {
+    display: none;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 28px 48px;
+    min-height: 100vh;
+  }
+  .page.active { display: block; }
+
+  @media (max-width: 600px) {
+    .page { padding: 20px 20px; }
+  }
+
+  /* ── Utilities ── */
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 4px 13px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; line-height: 1.4; letter-spacing: .03em;
+  }
+  .pill-teal  { background: var(--teal-lt); color: var(--teal); border: 1.5px solid var(--teal-md); }
+  .pill-gold  { background: var(--gold-lt); color: var(--gold);  border: 1.5px solid var(--gold-md); }
+  .pill-light { background: var(--white);   color: var(--muted); border: 1.5px solid var(--border); }
+  .pill-navy  { background: var(--navy);    color: var(--white); }
+
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 16px 20px;
+  }
+  .card-teal { background: var(--teal-lt); border-color: var(--teal-md); }
+  .card-gold { background: var(--gold-lt); border-color: var(--gold-md); }
+  .card-navy { background: var(--navy);    border-color: var(--navy2);    color: var(--white); }
+
+  .btn {
+    width: 100%; padding: 16px;
+    border: none; border-radius: 14px;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer; transition: opacity .15s, transform .1s;
+    letter-spacing: .03em;
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-teal { background: var(--teal); color: var(--white); }
+  .btn-gold  { background: var(--gold);  color: var(--white); }
+  .btn-navy  { background: var(--navy);  color: var(--white); }
+  .btn:hover { opacity: .88; }
+
+  .back-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 22px; color: var(--navy); padding: 4px 8px 4px 0;
+    line-height: 1; flex-shrink: 0;
+  }
+
+  .page-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  }
+  .page-header h2 { font-size: 18px; font-weight: 900; font-family: 'Noto Serif TC', serif; }
+
+  input[type=text], textarea {
+    width: 100%; font-family: inherit; font-size: 14px; color: var(--navy);
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 14px 16px;
+    outline: none; transition: border-color .2s; resize: none;
+  }
+  input[type=text]:focus, textarea:focus { border-color: var(--teal); }
+  input[type=text]::placeholder, textarea::placeholder { color: #BBBBBB; }
+
+  /* ── HOME ── */
+  .top-bar {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; padding: 14px 0 0;
+  }
+  .logo-mark {
+    width: 38px; height: 38px; background: var(--navy);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .logo-txt { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: var(--navy); }
+
+  .hero { text-align: center; margin: 18px 0 6px; }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(28px, 5.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.25;
+    color: var(--navy);
+    letter-spacing: .02em;
+  }
+  .hero-title .accent { color: var(--teal); }
+  .hero-sub { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.7; }
+
+  .divider { width: 48px; height: 3px; background: var(--gold); margin: 14px auto; border-radius: 2px; }
+
+  .mode-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;
+  }
+  @media (max-width: 500px) { .mode-cards { grid-template-columns: 1fr; } }
+
+  .mode-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 22px; padding: 22px; cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  .mode-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #1C2B4A14; border-color: var(--teal-md); }
+  .mode-card.gold-mode:hover { border-color: var(--gold-md); }
+  .mode-card .mode-icon { font-size: 38px; margin: 8px 0; }
+  .mode-card h3 { font-size: 20px; font-weight: 900; font-family: 'Noto Serif TC', serif; margin: 4px 0; color: var(--navy); }
+  .mode-card p  { font-size: 13px; color: var(--muted); margin: 6px 0 12px; line-height: 1.6; }
+  .mode-card .cta { font-size: 13px; font-weight: 700; color: var(--teal); }
+  .mode-card.gold-mode .cta { color: var(--gold); }
+  .mode-card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+  .board-entry {
+    border: 1.5px solid var(--border); border-radius: 22px;
+    padding: 20px 28px; text-align: center; cursor: pointer;
+    background: var(--white);
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  .board-entry:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #1C2B4A10; border-color: var(--teal-md); }
+
+  /* ── CAT GRID ── */
+  .cat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  @media (max-width: 400px) { .cat-grid { grid-template-columns: repeat(2,1fr); } }
+
+  .cat-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 16px 8px; text-align: center;
+    cursor: pointer; transition: border-color .15s, background .15s, transform .12s;
+  }
+  .cat-card:hover { border-color: var(--teal); background: var(--teal-lt); transform: translateY(-2px); }
+  .cat-card .cat-ic { font-size: 26px; }
+  .cat-card .cat-nm { font-size: 11px; font-weight: 700; margin-top: 6px; color: var(--navy); line-height: 1.3; }
+
+  /* ── SUB GRID ── */
+  .sub-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 16px 8px; text-align: center;
+    cursor: pointer; transition: border-color .15s, background .15s, transform .12s;
+  }
+  .sub-card:hover { border-color: var(--teal); background: var(--teal-lt); transform: translateY(-2px); }
+  .sub-card .sub-ic { font-size: 28px; }
+  .sub-card .sub-nm { font-size: 11px; font-weight: 700; margin-top: 7px; line-height: 1.3; color: var(--navy); }
+
+  /* ── RESULT PAGE ── */
+  .result-header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+    border-radius: 20px; padding: 22px 24px; color: white; margin-bottom: 16px;
+  }
+  .result-header .rh-tag { font-size: 11px; opacity: .7; font-weight: 700; letter-spacing: .06em; margin-bottom: 8px; }
+  .result-header h3 { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; line-height: 1.4; }
+  .result-header .rh-sub { font-size: 12px; opacity: .7; margin-top: 6px; }
+
+  .info-block { margin-bottom: 14px; }
+  .info-block-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 900; color: var(--navy);
+    margin-bottom: 8px;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .info-block-title .ib-ic {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--teal-lt); display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .info-content {
+    background: var(--white); border: 1.5px solid var(--border); border-radius: 14px;
+    padding: 14px 16px; font-size: 13px; color: var(--slate); line-height: 1.75;
+  }
+  .info-content ul { padding-left: 18px; }
+  .info-content li { margin-bottom: 4px; }
+  .warning-box {
+    background: var(--red-lt); border: 1.5px solid #F5B8B3; border-radius: 14px;
+    padding: 12px 16px; font-size: 12px; color: var(--red); line-height: 1.6;
+  }
+  .tip-box {
+    background: var(--gold-lt); border: 1.5px solid var(--gold-md); border-radius: 14px;
+    padding: 12px 16px; font-size: 12px; color: #7A6030; line-height: 1.6;
+  }
+  /* ── 浮動緊急求助按鈕 ── */
+  .sos-fab {
+    position: fixed; bottom: 24px; right: 20px; z-index: 900;
+    background: var(--red); color: #fff;
+    border: none; border-radius: 50px;
+    padding: 12px 18px; font-size: 13px; font-weight: 900;
+    font-family: inherit; cursor: pointer; letter-spacing: .03em;
+    box-shadow: 0 4px 18px #C0392B44;
+    transition: transform .15s, opacity .15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sos-fab:hover { transform: translateY(-2px); opacity: .92; }
+
+  .sos-overlay {
+    display: none; position: fixed; inset: 0; z-index: 950;
+    background: #00000055; align-items: flex-end; justify-content: center;
+  }
+  .sos-overlay.open { display: flex; }
+
+  .sos-sheet {
+    background: var(--white); border-radius: 24px 24px 0 0;
+    padding: 24px 24px 40px; width: 100%; max-width: 820px;
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(60px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  .sos-sheet .sos-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 16px;
+  }
+  .sos-sheet .sos-title {
+    font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 900; color: var(--navy);
+  }
+  .sos-close {
+    background: none; border: none; font-size: 22px; cursor: pointer;
+    color: var(--muted); line-height: 1;
+  }
+  .sos-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  @media (max-width: 420px) { .sos-grid { grid-template-columns: 1fr; } }
+  .sos-item {
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: 14px;
+    padding: 12px 14px;
+  }
+  .sos-item .sos-num { font-size: 18px; font-weight: 900; color: var(--red); }
+  .sos-item .sos-lbl { font-size: 12px; color: var(--slate); margin-top: 2px; line-height: 1.5; }
+
+  .stale-box {
+    background: #FFF4E6; border: 1.5px solid #F5A623; border-radius: 14px;
+    padding: 12px 16px; font-size: 12px; color: #7A4800; line-height: 1.6; margin-bottom: 14px;
+  }
+  .version-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; opacity: .65; font-weight: 600;
+    margin-top: 6px; letter-spacing: .02em;
+  }
+
+  /* ── Q&A page ── */
+  .qa-list { display: flex; flex-direction: column; gap: 10px; }
+  .qa-item {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 16px 18px; cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .qa-item:hover { border-color: var(--teal); background: var(--teal-lt); }
+  .qa-item .q-text { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .qa-item .q-tag  { font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+  /* ── FAQ Answer ── */
+  .faq-answer-page .faq-q {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px; font-weight: 900; color: var(--navy);
+    line-height: 1.5; margin-bottom: 16px;
+  }
+  .answer-body { font-size: 14px; color: var(--slate); line-height: 1.85; }
+  .answer-body h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px; font-weight: 900; color: var(--navy); margin: 14px 0 6px;
+  }
+  .answer-body ul { padding-left: 18px; margin-bottom: 8px; }
+  .answer-body li { margin-bottom: 5px; }
+
+  /* ── BOARD ── */
+  .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  @media (max-width: 480px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+  .stat-card { border-radius: 14px; padding: 14px 0; text-align: center; }
+  .stat-card .stat-num { font-size: 22px; font-weight: 900; font-family: 'Noto Serif TC', serif; }
+  .stat-card .stat-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .search-wrap { position: relative; margin-bottom: 14px; }
+  .search-wrap .search-ic {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    font-size: 16px; pointer-events: none;
+  }
+  .search-wrap input { padding-left: 44px; border-radius: 16px; height: 52px; background: var(--white); }
+  .search-wrap input:focus { border-color: var(--teal); }
+
+  /* ── Snackbar ── */
+  .snackbar {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+    background: var(--navy); color: var(--white); border-radius: 12px;
+    padding: 12px 20px; font-size: 14px; font-weight: 500;
+    z-index: 999; transition: transform .3s, opacity .3s; opacity: 0;
+    white-space: nowrap; letter-spacing: .02em;
+  }
+  .snackbar.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* spacing */
+  .mt4  { margin-top: 4px; }
+  .mt8  { margin-top: 8px; }
+  .mt12 { margin-top: 12px; }
+  .mt16 { margin-top: 16px; }
+  .mt20 { margin-top: 20px; }
+  .mb40 { margin-bottom: 40px; }
+
+  .section-label {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: .08em; text-transform: uppercase;
+    margin-bottom: 10px; margin-top: 20px;
+  }
+  .related-list { display: flex; flex-direction: column; gap: 8px; }
+  .related-item {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 12px 16px; cursor: pointer;
+    font-size: 13px; font-weight: 700; color: var(--navy);
+    transition: border-color .15s, background .15s;
+  }
+  .related-item:hover { border-color: var(--teal); background: var(--teal-lt); }
+
+  /* ── Global Search ── */
+  .global-search-wrap {
+    position: relative; margin: 16px 0 0;
+  }
+  .global-search-wrap .gs-ic {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    font-size: 16px; pointer-events: none;
+  }
+  .global-search-wrap input {
+    padding-left: 44px; padding-right: 44px;
+    border-radius: 16px; height: 52px; background: var(--white);
+    font-size: 14px;
+  }
+  .global-search-wrap input:focus { border-color: var(--teal); }
+  .gs-clear {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; color: var(--muted); display: none; line-height: 1;
+  }
+  #page-search .sr-section-label {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: .08em; text-transform: uppercase;
+    margin: 18px 0 8px;
+  }
+  .sr-item {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 14px 18px; cursor: pointer;
+    transition: border-color .15s, background .15s; margin-bottom: 8px;
+  }
+  .sr-item:hover { border-color: var(--teal); background: var(--teal-lt); }
+  .sr-item .sr-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .sr-item .sr-meta  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .sr-item .sr-desc  { font-size: 12px; color: var(--slate); margin-top: 4px; line-height: 1.5; }
+  .sr-empty { text-align: center; padding: 48px 0; color: var(--muted); font-size: 14px; }
+
+  footer-bar {
+    display: block;
+    border-top: 1.5px solid var(--border);
+    padding: 20px 0;
+    margin-top: 32px;
+    text-align: center;
+  }
+  .footer-note { font-size: 11px; color: #BBBBBB; line-height: 1.9; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HOME ════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="top-bar">
+    <div class="logo-mark">⚖️</div>
+    <div class="logo-txt">法律常識小幫手</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-title">遇到法律問題，<br><span class="accent">先懂基本常識</span></div>
+    <div class="divider"></div>
+    <div class="hero-sub">生活中大小法律情境一次查清楚<br>了解你的權利，從容面對每一個狀況</div>
+    <div style="margin-top:10px;font-size:12px;color:var(--red);line-height:1.7">
+      找不到答案？別慌！直接撥打法律扶助 <strong>412-8518</strong> 或 <strong>165</strong> 反詐專線，專業人員會陪你一步步處理。
+    </div>
+  </div>
+
+  <div class="global-search-wrap">
+    <span class="gs-ic">🔍</span>
+    <input type="text" id="global-search-input" placeholder="搜尋法律問題，例如：押金、加班費、詐騙..." oninput="onGlobalSearch(this.value)">
+    <button class="gs-clear" id="gs-clear-btn" onclick="clearGlobalSearch()">✕</button>
+  </div>
+
+  <div class="card card-teal mt12" style="padding:14px 18px">
+    <div style="display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:16px">📌</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--navy)">本工具的使用方式</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.6">
+          選擇你遇到的情境類別，查看基本法律常識與自保建議。<br>
+          本工具僅供參考，不構成法律意見，重要事項請諮詢律師。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mode-cards mt20">
+    <div class="mode-card" onclick="showPage('page-flow')">
+      <span class="pill pill-teal">依情境查詢</span>
+      <div class="mode-icon">🗂️</div>
+      <h3>情境查詢</h3>
+      <p>不知道從哪裡開始？依生活情境分類，快速找到對應的法律常識。</p>
+      <div class="tags">
+        <span class="pill pill-light">#租屋糾紛</span>
+        <span class="pill pill-light">#勞資問題</span>
+        <span class="pill pill-light">#消費糾紛</span>
+      </div>
+      <div class="cta">開始查詢 →</div>
+    </div>
+
+    <div class="mode-card gold-mode" onclick="showPage('page-faq')">
+      <span class="pill pill-gold">常見法律Q&A</span>
+      <div class="mode-icon">💬</div>
+      <h3>常見問題</h3>
+      <p>整理最多人遇到的法律疑問，一問一答，清楚說明你的權利義務。</p>
+      <div class="tags">
+        <span class="pill pill-light">#快速解惑</span>
+        <span class="pill pill-light">#實用建議</span>
+        <span class="pill pill-light">#自保技巧</span>
+      </div>
+      <div class="cta">查看Q&A →</div>
+    </div>
+  </div>
+
+  <div class="board-entry" onclick="showPage('page-checklist')">
+    <div style="font-size:40px">📋</div>
+    <div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:900;margin:6px 0;color:var(--navy)">遇到糾紛，你該做什麼？</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.6">蒐集證據、時效計算、找資源——<br>一張清單幫你理清頭緒，不慌不忙應對法律問題。</div>
+    <div class="mt8">
+      <span class="pill pill-teal">📌 自救行動清單</span>
+    </div>
+  </div>
+
+  <div class="warning-box mt20" style="background:var(--red-lt);border-color:#F5B8B3;color:var(--red)">
+    ⚠️ <strong>如果你在這個工具裡沒找到你遇到的問題，切勿慌張！</strong><br>
+    請立即聯繫以下單位，他們提供免費或低成本諮詢：
+    <ul style="margin-top:8px;padding-left:20px;font-size:13px;line-height:2">
+      <li>法律扶助基金會（免費法律諮詢）：412-8518 或 <a href="https://www.laf.org.tw" target="_blank" style="color:var(--red)">官網預約</a></li>
+      <li>各縣市法律扶助分會（就近諮詢）：台南分會 06-215-1120</li>
+      <li>勞工問題：勞動部 <strong>1955</strong> 專線（免費）</li>
+      <li>消費者問題：消費者服務專線 <strong>1950</strong></li>
+      <li>家暴／性騷擾／跟蹤：<strong>113</strong> 保護專線（24小時）</li>
+      <li>詐騙急報：<strong>165</strong> 反詐騙專線（24小時）</li>
+      <li>緊急報案：<strong>110</strong></li>
+    </ul>
+    專業單位能根據你的實際情況給予客製化建議，這才是最安全的做法。
+  </div>
+
+  <footer-bar>
+    <div class="footer-note">
+      本工具提供之法律常識資訊僅供參考，不構成任何法律建議<br>
+      法律問題因個案差異而不同，重要事項請諮詢專業律師<br>
+      資料依據中華民國現行法規整理
+    </div>
+  </footer-bar>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FLOW（類別選擇）════════════════════ -->
+<div id="page-flow" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <h2>選擇情境類別</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px">選擇與你情況最相近的大類</div>
+  <div class="cat-grid mt16" id="cat-grid"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ SUB（子類別）════════════════════ -->
+<div id="page-sub" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-flow')">←</button>
+  </div>
+  <div id="sub-banner" style="border-radius:20px;padding:20px 22px;margin-top:8px;background:var(--teal-lt);border:1.5px solid var(--teal-md)">
+    <div style="font-size:40px;line-height:1" id="sub-banner-ic"></div>
+    <div style="font-family:'Noto Serif TC',serif;font-size:20px;font-weight:900;margin-top:8px;color:var(--navy)" id="sub-banner-name"></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:4px">選擇更精確的子類別</div>
+  </div>
+  <div style="margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px" id="sub-grid"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ RESULT（法律常識結果）════════════════════ -->
+<div id="page-result" class="page">
+  <div class="page-header">
+    <button class="back-btn" id="result-back-btn" onclick="showPage('page-sub')">←</button>
+    <h2 id="result-page-title">法律常識</h2>
+  </div>
+  <div id="result-content" class="mt8"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FAQ ════════════════════ -->
+<div id="page-faq" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <h2>常見法律Q&A</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px">點擊問題查看解答</div>
+
+  <div class="search-wrap mt12">
+    <span class="search-ic">🔍</span>
+    <input type="text" id="faq-search" placeholder="搜尋法律問題..." oninput="renderFAQ(this.value)">
+  </div>
+
+  <div class="qa-list mt4" id="faq-list"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FAQ ANSWER ════════════════════ -->
+<div id="page-faq-answer" class="page faq-answer-page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-faq')">←</button>
+    <h2>法律解答</h2>
+  </div>
+  <div id="faq-answer-content" class="mt8"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ CHECKLIST ════════════════════ -->
+<div id="page-checklist" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <h2>自救行動清單</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px">遇到法律糾紛時，按步驟處理</div>
+
+  <div class="result-header mt16">
+    <div class="rh-tag">⚖️ 第一步驟</div>
+    <h3>保持冷靜，先做這三件事</h3>
+    <div class="rh-sub">90% 的法律糾紛在這個階段就能決定勝負</div>
+  </div>
+
+  <div id="checklist-content"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ SEARCH RESULTS ════════════════════ -->
+<div id="page-search" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="clearGlobalSearch()">←</button>
+    <h2>搜尋結果</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px" id="sr-summary"></div>
+  <div id="sr-knowledge"></div>
+  <div id="sr-faq"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════ 浮動緊急求助按鈕 ════════ -->
+<button class="sos-fab" onclick="openSOS()">🆘 緊急求助</button>
+
+<div class="sos-overlay" id="sos-overlay" onclick="closeSOS(event)">
+  <div class="sos-sheet">
+    <div class="sos-header">
+      <div class="sos-title">🆘 免費諮詢與緊急求助管道</div>
+      <button class="sos-close" onclick="closeSOS()">✕</button>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+      找不到答案？別慌！以下單位提供<strong>免費或低成本</strong>協助，專業人員會陪你一步步處理。
+    </div>
+    <div class="sos-grid">
+      <div class="sos-item">
+        <div class="sos-num">412-8518</div>
+        <div class="sos-lbl">法律扶助基金會<br>免費法律諮詢・全台分會</div>
+      </div>
+      <div class="sos-item">
+        <div class="sos-num">1955</div>
+        <div class="sos-lbl">勞動部<br>勞工諮詢申訴（免費）</div>
+      </div>
+      <div class="sos-item">
+        <div class="sos-num">1950</div>
+        <div class="sos-lbl">行政院消保處<br>消費者服務專線</div>
+      </div>
+      <div class="sos-item">
+        <div class="sos-num">113</div>
+        <div class="sos-lbl">衛福部保護專線<br>家暴・性騷・跟蹤（24h）</div>
+      </div>
+      <div class="sos-item">
+        <div class="sos-num">165</div>
+        <div class="sos-lbl">刑事局反詐騙專線<br>疑似詐騙立即撥（24h）</div>
+      </div>
+      <div class="sos-item">
+        <div class="sos-num">110</div>
+        <div class="sos-lbl">警察報案專線<br>緊急狀況優先撥打</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;font-size:11px;color:var(--muted);text-align:center;line-height:1.7">
+      台南法扶分會：06-215-1120 ・
+      <a href="https://www.laf.org.tw" target="_blank" style="color:var(--teal)">法扶官網線上預約</a>
+    </div>
+  </div>
+</div>
+
+<!-- Snackbar -->
+<div class="snackbar" id="snackbar"></div>
+
+<script>
+// ─── Data ──────────────────────────────────────────────────────
+const CAT_TREE = [
+  { ic:"🧑‍⚖️", n:"人生階段",
+    subs:[
+      { nm:"成年宣告", ic:"🧑", key:"adult_declare" },
+      { nm:"監護制度", ic:"🛡️", key:"guardianship" },
+      { nm:"成年後權利義務", ic:"📜", key:"adult_rights" },
+    ]
+  },
+  { ic:"💼", n:"工作與職涯",
+    subs:[
+      { nm:"勞動契約", ic:"📋", key:"labor_contract" },
+      { nm:"加班與休假", ic:"⏰", key:"overtime" },
+      { nm:"資遣與離職", ic:"🚪", key:"dismissal" },
+      { nm:"欠薪", ic:"💸", key:"unpaid_wage" },
+      { nm:"職業災害", ic:"🦺", key:"work_injury" },
+      { nm:"職場霸凌/性騷擾", ic:"🚫", key:"workplace_harass" },
+    ]
+  },
+  { ic:"💰", n:"金錢與投資",
+    subs:[
+      { nm:"借貸與欠債", ic:"🤝", key:"loan" },
+      { nm:"信用卡/分期", ic:"💳", key:"credit_card" },
+      { nm:"投資詐騙", ic:"⚠️", key:"invest_fraud" },
+      { nm:"債務清理/更生", ic:"🔄", key:"debt_rehab" },
+    ]
+  },
+  { ic:"🏥", n:"健康與身體",
+    subs:[
+      { nm:"醫療糾紛", ic:"🩺", key:"medical_dispute" },
+      { nm:"醫療同意書", ic:"📝", key:"medical_consent" },
+      { nm:"身心障礙權益", ic:"♿", key:"disability_rights" },
+    ]
+  },
+  { ic:"❤️", n:"情感與關係",
+    subs:[
+      { nm:"同居財產", ic:"🏠", key:"cohabitation" },
+      { nm:"婚前協議", ic:"💍", key:"prenuptial" },
+      { nm:"性騷擾/跟蹤", ic:"🚫", key:"sexual_harass" },
+      { nm:"偷拍/深偽侵權", ic:"📷", key:"deepfake" },
+      { nm:"跟蹤騷擾保護令", ic:"🛡️", key:"stalking_protection" },
+    ]
+  },
+  { ic:"👨‍👩‍👧", n:"家庭與育兒",
+    subs:[
+      { nm:"結婚登記", ic:"💒", key:"marriage_reg" },
+      { nm:"離婚與監護權", ic:"⚖️", key:"divorce" },
+      { nm:"扶養費/贍養費", ic:"💰", key:"alimony" },
+      { nm:"家暴保護令", ic:"🛡️", key:"domestic_violence" },
+      { nm:"拋棄繼承", ic:"⚰️", key:"inheritance_waiver" },
+      { nm:"限定繼承", ic:"🏦", key:"inheritance_limited" },
+      { nm:"支付命令異議", ic:"📬", key:"payment_order_objection_after_waiver" },
+    ]
+  },
+  { ic:"🏠", n:"居住與房屋",
+    subs:[
+      { nm:"押金/提前解約", ic:"🔑", key:"rent_deposit" },
+      { nm:"漏水糾紛", ic:"💧", key:"leak" },
+      { nm:"買賣瑕疵擔保", ic:"🏡", key:"property_defect" },
+      { nm:"管委會糾紛", ic:"🏢", key:"hoa_dispute" },
+    ]
+  },
+  { ic:"🚗", n:"交通與移動",
+    subs:[
+      { nm:"交通事故和解", ic:"💥", key:"traffic_accident" },
+      { nm:"強制汽車責任險", ic:"🛡️", key:"compulsory_insurance" },
+      { nm:"酒駕/毒駕", ic:"🍺", key:"drunk_driving" },
+      { nm:"違規罰單", ic:"📄", key:"traffic_fine" },
+    ]
+  },
+  { ic:"🛒", n:"消費與產品",
+    subs:[
+      { nm:"7天猶豫期", ic:"📦", key:"cooling_off" },
+      { nm:"瑕疵商品退換", ic:"🔄", key:"defective_goods" },
+      { nm:"網路詐騙", ic:"💻", key:"online_fraud" },
+      { nm:"廣告不實", ic:"📢", key:"false_ad" },
+    ]
+  },
+  { ic:"🤖", n:"AI與數位",
+    subs:[
+      { nm:"個資外洩", ic:"🔓", key:"data_breach" },
+      { nm:"AI生成內容侵權", ic:"🤖", key:"ai_copyright" },
+      { nm:"數位帳號繼承", ic:"📱", key:"digital_inheritance" },
+    ]
+  },
+  { ic:"🎨", n:"興趣與娛樂",
+    subs:[
+      { nm:"著作權/盜版", ic:"©️", key:"copyright" },
+      { nm:"直播合約糾紛", ic:"📡", key:"stream_contract" },
+      { nm:"票券退費", ic:"🎟️", key:"ticket_refund" },
+    ]
+  },
+  { ic:"🤝", n:"人際與社交",
+    subs:[
+      { nm:"借錢不還", ic:"💸", key:"debt_collection" },
+      { nm:"合夥糾紛", ic:"🤝", key:"partnership" },
+      { nm:"鄰里噪音/界線", ic:"🏘️", key:"neighbor" },
+      { nm:"網路名譽毀損", ic:"💬", key:"defamation" },
+    ]
+  },
+  { ic:"✨", n:"外貌與形象",
+    subs:[
+      { nm:"整形醫療糾紛", ic:"💉", key:"cosmetic_dispute" },
+      { nm:"肖像權侵害", ic:"🖼️", key:"portrait_rights" },
+      { nm:"名譽毀損", ic:"💬", key:"reputation" },
+    ]
+  },
+  { ic:"🧘", n:"心理與壓力",
+    subs:[
+      { nm:"精神疾病就業權益", ic:"🧠", key:"mental_employment" },
+      { nm:"強制住院規定", ic:"🏥", key:"involuntary_commit" },
+      { nm:"心理諮商保密", ic:"🔒", key:"counseling_privacy" },
+    ]
+  },
+  { ic:"📄", n:"生活效率",
+    subs:[
+      { nm:"契約簽署注意", ic:"✍️", key:"contract_sign" },
+      { nm:"授權書/委託書", ic:"📜", key:"power_of_attorney" },
+      { nm:"時效計算", ic:"⏱️", key:"statute_limitation" },
+      { nm:"證據保全", ic:"🗂️", key:"evidence_preservation" },
+    ]
+  },
+  { ic:"🚨", n:"詐騙與網路犯罪",
+    subs:[
+      { nm:"假投資詐騙", ic:"📈", key:"scam_investment" },
+      { nm:"假交友/感情詐騙", ic:"💔", key:"scam_friendship" },
+      { nm:"假網拍/購物詐騙", ic:"🛍️", key:"scam_online_shopping" },
+    ]
+  },
+  { ic:"💳", n:"債務與消債",
+    subs:[
+      { nm:"更生程序", ic:"🔄", key:"debt_rehabilitation" },
+      { nm:"清算程序", ic:"⚖️", key:"debt_liquidation" },
+    ]
+  },
+];
+
+// ─── 法律常識內容庫 ──────────────────────────────────────────
+const LEGAL_KNOWLEDGE = {
+  labor_contract: {
+    title: "勞動契約",
+    category: "工作與職涯",
+    summary: "勞動契約是勞雇關係的基礎，法律對受僱者有一定程度的保障。",
+    know_your_rights: [
+      "勞動契約可書面或口頭成立，但書面契約對你更有保障",
+      "雇主不得以契約排除勞基法規定的最低標準（如最低工資、例假日）",
+      "試用期間雇主仍需依法給付工資，且不得隨意解僱",
+      "定期契約連續訂立或續約超過一定條件，可能轉為不定期契約",
+    ],
+    action_steps: [
+      "簽約前仔細閱讀每一條款，特別注意工資、工時、試用期規定",
+      "要求雇主提供書面契約，並留存一份副本",
+      "若有不合理條款（如違約金過高），可協商修改或諮詢律師",
+      "存檔所有勞資往來的通訊紀錄（LINE、Email）",
+    ],
+    warning: "若契約內容違反勞基法強制規定，該部分條款無效，仍適用勞基法最低標準。",
+    tip: "勞動部「1955勞工諮詢申訴專線」提供免費勞資諮詢服務。",
+    related: ["overtime", "dismissal", "unpaid_wage"],
+  },
+  overtime: {
+    title: "加班與休假",
+    category: "工作與職涯",
+    summary: "勞基法對工時與休假有明確規定，超時工作有補償規定。",
+    know_your_rights: [
+      "正常工時每天8小時、每週40小時，超過即為加班",
+      "加班費：前2小時至少給平日工資1/3、再延長為2/3",
+      "例假日（週日）若出勤，應給雙倍工資且補假一天",
+      "特休假依年資累積，雇主不得要求放棄",
+      "一般行業每月加班上限46小時，雇主不得強迫超時",
+    ],
+    action_steps: [
+      "記錄每日出勤及加班時間（含打卡記錄截圖）",
+      "確認加班申請流程，並保留書面加班同意記錄",
+      "核對薪資單，確認加班費計算是否正確",
+      "特休假到期若未休，雇主應折算工資給付",
+    ],
+    warning: "雇主以「責任制」名義要求無限加班，但除法定職類外，一般勞工不適用責任制，雇主仍需依法給付加班費。",
+    tip: "若雇主積欠加班費，可向勞工局申訴或提起民事訴訟，追溯期為5年。",
+    related: ["labor_contract", "dismissal", "unpaid_wage"],
+  },
+  dismissal: {
+    title: "資遣與離職",
+    category: "工作與職涯",
+    summary: "雇主資遣需符合法定事由並給予資遣費，勞工也有自請離職的相關保障。",
+    know_your_rights: [
+      "雇主資遣必須有法定事由（如業務緊縮、虧損），不能任意解僱",
+      "資遣預告期：年資未滿3個月不用預告，1~3年需10天，以此類推",
+      "資遣費：勞退新制每年年資0.5個月、舊制每年1個月",
+      "遭非法解僱可申請確認僱傭關係存在，並請求補發薪資",
+      "勞工因雇主重大違法可「被迫離職」，仍可請領資遣費",
+    ],
+    action_steps: [
+      "收到資遣通知時，要求雇主說明具體法律事由並書面化",
+      "確認資遣費計算是否正確，不足額可拒絕簽署同意書",
+      "資遣後30日內向公立就業服務機構辦理求職登記，才能申請失業給付",
+      "若認為遭非法解僱，可在30天內申請勞資爭議調解",
+    ],
+    warning: "簽署「非自願離職」相關文件前，務必確認內容，避免日後喪失失業給付資格或資遣費請求權。",
+    tip: "非自願離職可向勞保局申請失業給付，最長可領6個月（45歲以上可達9個月）。",
+    related: ["labor_contract", "unpaid_wage", "work_injury"],
+  },
+  unpaid_wage: {
+    title: "欠薪",
+    category: "工作與職涯",
+    summary: "雇主積欠薪資屬違法行為，勞工有多種救濟途徑可追討。",
+    know_your_rights: [
+      "薪資應按約定期日給付，雇主不得無故遲延或扣押",
+      "積欠薪資的請求權時效為5年",
+      "雇主惡意積欠薪資，可依法申請強制執行雇主財產",
+      "若公司倒閉，可向積欠工資墊償基金申請墊償（有上限）",
+    ],
+    action_steps: [
+      "立即以書面（LINE、Email、存證信函）催告雇主給付",
+      "保留薪資單、銀行轉帳記錄、勞動契約等證據",
+      "向當地勞工局申訴，請求行政介入",
+      "提起民事訴訟請求給付工資（可申請法律扶助）",
+    ],
+    warning: "若公司已有倒閉跡象，應儘快申請積欠工資墊償，並確認自己的勞保等級記錄是否正確。",
+    tip: "法律扶助基金會提供訴訟補助，符合資格者可免費獲得律師協助追討薪資。",
+    related: ["dismissal", "labor_contract", "work_injury"],
+  },
+  work_injury: {
+    title: "職業災害",
+    category: "工作與職涯",
+    summary: "在工作場所或因工作發生的傷亡，勞工可獲得職災補償保障。",
+    know_your_rights: [
+      "職災補償是雇主的無過失責任，不需證明雇主有過失",
+      "補償範圍：醫療費用、薪資補償、失能補償、死亡補償",
+      "職災期間雇主不得解僱勞工（有例外）",
+      "同時可依侵權行為向有過失的雇主或第三人請求損害賠償",
+      "勞保職災給付與雇主補償可分別請求，但可能需扣抵",
+    ],
+    action_steps: [
+      "事故發生立即就醫，並告知醫師「職業災害」以利記錄",
+      "向雇主通報並要求填寫職災通報表",
+      "向勞保局申請職災相關給付",
+      "蒐集現場照片、目擊者聯絡資料、工作記錄等",
+    ],
+    warning: "「職業病」也屬職災，若長期工作環境造成健康損害，應諮詢職業醫學科醫師評估認定。",
+    tip: "各縣市設有「職業災害勞工保護服務中心」，提供免費諮詢和協助申請服務。",
+    related: ["labor_contract", "dismissal", "workplace_harass"],
+  },
+  workplace_harass: {
+    title: "職場霸凌 / 性騷擾",
+    category: "工作與職涯",
+    summary: "職場霸凌與性騷擾均受法律保護，受害者有申訴及求償途徑。",
+    know_your_rights: [
+      "雇主有義務維護職場安全，包含防止性騷擾與霸凌",
+      "30人以上企業須設申訴機制；受害者可向主管機關申訴",
+      "性騷擾可提起刑事告訴（性騷擾防治法）及民事損害賠償",
+      "霸凌造成精神損害可請求慰撫金",
+      "申訴期間雇主不得對申訴人為不利處分",
+    ],
+    action_steps: [
+      "以文字記錄每次事件（日期、時間、內容、在場人）",
+      "保留對話截圖、Email等相關證據",
+      "向公司HR或申訴委員會提出正式申訴",
+      "可向地方政府勞工局或衛生局（性騷擾）提出申訴",
+    ],
+    warning: "申訴要有時效意識：性騷擾申訴通常為事發後1年內，刑事告訴也有追訴時效，請勿拖延。",
+    tip: "「現代婦女基金會」及「勵馨基金會」等機構提供職場性騷擾受害者的法律諮詢與陪同服務。",
+    related: ["labor_contract", "work_injury", "defamation"],
+  },
+  rent_deposit: {
+    title: "押金 / 提前解約",
+    category: "居住與房屋",
+    summary: "租屋是很多人最常遇到的法律問題，了解押金和解約規定可避免損失。",
+    know_your_rights: [
+      "押金上限為租金的2個月，房東不得收取超過",
+      "租約到期或合法終止，房東應於返還鑰匙後退還押金",
+      "房東不得以任何理由超期扣留押金（如超過合理修繕費用）",
+      "租約有固定期限時，任一方提前解約，理論上需負損害賠償",
+      "若房東有重大違約（如漏水不修繕），租客可合法終止租約",
+    ],
+    action_steps: [
+      "簽約時拍照記錄屋內現狀，雙方確認並簽名",
+      "押金以匯款方式支付並保留收據",
+      "維修需求以書面（LINE/Email）通知房東，保留記錄",
+      "離屋時邀請房東共同檢查並簽署點交清單",
+    ],
+    warning: "口頭租約也具法律效力，但舉證困難。強烈建議簽署書面租約，並向地方政府備份登記。",
+    tip: "內政部不動產資訊平台提供「住宅租賃定型化契約」範本，可下載使用，保護雙方權益。",
+    related: ["leak", "property_defect", "hoa_dispute"],
+  },
+  leak: {
+    title: "漏水糾紛",
+    category: "居住與房屋",
+    summary: "漏水責任認定因來源而異，了解責任歸屬是解決糾紛的關鍵。",
+    know_your_rights: [
+      "自樓上滲漏造成的損害，樓上住戶或房東須負修繕責任",
+      "外牆或公共設施漏水，由管委會或建商負責",
+      "出租物件房東有維持使用狀態的義務，漏水應由房東修繕",
+      "因漏水造成的財物損失，可向責任方請求損害賠償",
+    ],
+    action_steps: [
+      "立即拍照、錄影記錄漏水情形及受損範圍",
+      "以書面通知房東或管委會，要求限期處理",
+      "若對方不處理，可向不動產糾紛調解委員會申請調解",
+      "必要時委請鑑定機構鑑定漏水來源（費用可納入求償）",
+    ],
+    warning: "注意修繕前要先「存證」再動工，勿自行修繕後才要求對方賠償，以免舉證困難。",
+    tip: "向各縣市「不動產糾紛調解委員會」申請調解，費用低廉且有法律效力。",
+    related: ["rent_deposit", "property_defect", "hoa_dispute"],
+  },
+  traffic_accident: {
+    title: "交通事故和解",
+    category: "交通與移動",
+    summary: "交通事故處理有時間性，了解程序與權利才能保障自身利益。",
+    know_your_rights: [
+      "強制汽車責任險（強制險）提供無過失補償，與過失無關",
+      "民事賠償可請求醫療費、工作損失、精神慰撫金等",
+      "調解或和解協議需謹慎，簽署後可能影響後續法律請求",
+      "超過2年未請求，民事賠償請求權可能消滅",
+    ],
+    action_steps: [
+      "事故後立即報警並等待警察作成事故證明",
+      "拍照記錄現場、車損、傷勢，蒐集對方資料",
+      "就醫治療並保存所有醫療收據",
+      "和解前評估全部損害（包含後續治療），勿急於簽署",
+    ],
+    warning: "不要在傷勢未確定前就與對方和解，慢性傷害或後遺症難以在事故初期評估。建議傷勢穩定後再談和解。",
+    tip: "各縣市「鄉鎮市區調解委員會」可申請交通事故調解，達成調解具有執行力，免收費用。",
+    related: ["compulsory_insurance", "drunk_driving", "traffic_fine"],
+  },
+  compulsory_insurance: {
+    title: "強制汽車責任險",
+    category: "交通與移動",
+    summary: "強制汽車責任險保障交通事故傷亡的基本補償，是法定強制投保。",
+    know_your_rights: [
+      "強制險補償不論過失，只要是道路交通事故傷亡均可申請",
+      "傷殘補償最高200萬，死亡最高200萬，傷害醫療最高20萬",
+      "被保險人（駕駛本人）不在補償範圍，但乘客受保障",
+      "加害人無投保，可向「財團法人汽車交通事故特別補償基金」申請",
+    ],
+    action_steps: [
+      "事故後向加害人索取強制險保單資料",
+      "備妥診斷證明、醫療收據、事故證明向保險公司申請",
+      "申請期限為2年，應儘早辦理",
+      "若加害人逃逸，仍可向特別補償基金申請",
+    ],
+    warning: "強制險補償金額有上限，嚴重傷亡案件應同時向加害人追討民事賠償，以彌補不足部分。",
+    tip: "交通事故傷害申請強制險給付，可直接向各大保險公司（不限加害人投保的公司）申請。",
+    related: ["traffic_accident", "drunk_driving"],
+  },
+  cooling_off: {
+    title: "7天猶豫期",
+    category: "消費與產品",
+    summary: "通訊購物（網購）的消費者享有7天猶豫期，無需說明理由退貨。",
+    know_your_rights: [
+      "網購、電視購物、郵購適用7天猶豫期（非7個工作天，是自然日）",
+      "猶豫期內退貨，業者不得要求消費者說明理由",
+      "業者不得將拆封、試用作為不退貨的理由（除特定商品外）",
+      "退款應於收到退回商品後7天內完成",
+      "超商取貨付款也適用猶豫期",
+    ],
+    action_steps: [
+      "收到商品後立即確認品質，決定是否行使退貨權",
+      "以書面（email或訊息）通知業者行使猶豫期退貨",
+      "保留所有購買記錄、對話及退貨通知的截圖",
+      "若業者拒絕退貨，向消保局申訴",
+    ],
+    warning: "下列商品不適用7天猶豫期：量身訂做商品、易腐敗生鮮、拆封後無法回復原狀的衛生用品、已下載的數位內容等。",
+    tip: "行政院消費者保護會「1950」消費者服務專線，可協助處理業者不當拒絕退貨的糾紛。",
+    related: ["defective_goods", "online_fraud", "false_ad"],
+  },
+  divorce: {
+    title: "離婚與監護權",
+    category: "家庭與育兒",
+    summary: "離婚涉及財產分配、子女監護等重大問題，了解基本規定有助於保護自身權益。",
+    know_your_rights: [
+      "離婚方式：協議離婚（雙方同意）或裁判離婚（法院判決）",
+      "婚後財產原則上於離婚時均分（剩餘財產分配請求權）",
+      "子女監護以「子女最佳利益」為原則，由法院決定",
+      "未同住的一方仍享有探視權，對方不得阻撓",
+      "有責任的一方仍有財產分配請求權，但可能影響慰撫金",
+    ],
+    action_steps: [
+      "離婚前列清楚婚後夫妻雙方的財產清單",
+      "子女監護、探視時間、扶養費應在離婚協議中明確約定",
+      "協議離婚須2位以上証人，並向戶政事務所辦理登記",
+      "若有家暴情事，優先申請保護令確保人身安全",
+    ],
+    warning: "簽署離婚協議書前請務必諮詢律師，確認財產分配、監護條款是否合法且符合自身利益，協議一旦成立難以撤回。",
+    tip: "各地家庭暴力暨性侵害防治中心及法律扶助基金會，提供家庭法律問題的免費諮詢服務。",
+    related: ["marriage_reg", "alimony", "domestic_violence"],
+  },
+  domestic_violence: {
+    title: "家暴保護令",
+    category: "家庭與育兒",
+    summary: "遭受家庭暴力時，保護令是最直接有效的法律保障手段。",
+    know_your_rights: [
+      "家暴包含身體、精神、性暴力，也包含跟蹤騷擾",
+      "可申請緊急保護令（當日核發）、暫時保護令、通常保護令",
+      "保護令可禁止相對人進入住宅、工作地點或學校",
+      "違反保護令可處3年以下有期徒刑",
+      "可以自行或由警察、檢察官代為聲請保護令",
+    ],
+    action_steps: [
+      "遭受暴力立即就醫，取得驗傷證明",
+      "撥打113（家暴及性侵害防治專線）尋求協助",
+      "向警察報案或自行向地方法院聲請保護令",
+      "蒐集暴力證據（傷勢照片、傷診斷書、錄音等）",
+    ],
+    warning: "若有立即危險，應立即報警（110），不要試圖自己處理。人身安全優先於一切法律程序。",
+    tip: "撥打「113」可獲得24小時全天候的家暴諮詢、庇護所安排及法律諮詢服務。",
+    related: ["divorce", "alimony", "sexual_harass"],
+  },
+  loan: {
+    title: "借貸與欠債",
+    category: "金錢與投資",
+    summary: "金錢借貸需謹慎，了解舉證方式和催討途徑有助於保護自身利益。",
+    know_your_rights: [
+      "借貸關係需有「消費借貸」意思表示及金錢交付才成立",
+      "借款請求權時效一般為15年（依約定而異）",
+      "有借據的情況下，舉證較為容易",
+      "可聲請法院核發「支付命令」快速催討",
+      "若債務人不履行，可依確定判決聲請強制執行",
+    ],
+    action_steps: [
+      "借款時簽訂書面借據，載明金額、利率、還款期限",
+      "以銀行轉帳交付款項，保留轉帳記錄",
+      "催討時先以書面（存證信函）通知，保留證據",
+      "可向法院聲請支付命令（費用約500元起）",
+    ],
+    warning: "民間借貸利率不得超過年利率16%，超過部分無效。若遭遇「地下錢莊」式暴力催收，應立即報警。",
+    tip: "若欠款金額在50萬以下，可向簡易庭提起小額訴訟，手續簡便，費用較低。",
+    related: ["credit_card", "debt_rehab", "debt_collection"],
+  },
+  data_breach: {
+    title: "個資外洩",
+    category: "AI與數位",
+    summary: "個人資料受法律保護，遭到外洩或未授權使用時有申訴與求償途徑。",
+    know_your_rights: [
+      "個資法規定，蒐集、處理及利用個資須有法定依據或當事人同意",
+      "個資外洩者（機構）有通知當事人的義務",
+      "可請求停止蒐集、刪除個資，及損害賠償",
+      "每人每事件賠償新台幣500元至2萬元，若難以舉證實際損害可適用",
+    ],
+    action_steps: [
+      "發現個資疑似外洩，立即更換相關密碼並啟用雙重驗證",
+      "蒐集外洩證據（截圖、通知信件等）",
+      "向洩漏機構提出書面申訴，要求說明並採取補救措施",
+      "向個人資料保護委員會或相關主管機關申訴",
+    ],
+    warning: "網路釣魚、詐騙電話常利用外洩個資來增加可信度，接到可疑聯繫時務必透過官方管道核實身份。",
+    tip: "「個人資料保護委員會」（PDPC）受理個資相關申訴，可至官網或撥打客服尋求協助。",
+    related: ["ai_copyright", "online_fraud", "deepfake"],
+  },
+  contract_sign: {
+    title: "契約簽署注意事項",
+    category: "生活效率",
+    summary: "簽約前的謹慎評估是避免法律糾紛最有效的方式。",
+    know_your_rights: [
+      "契約自由原則：雙方可自由約定，但不得違反強制規定或公序良俗",
+      "定型化契約（標準格式）中對消費者顯失公平的條款無效",
+      "電子契約與書面契約具有相同法律效力",
+      "「知情同意」原則：不了解的條款有權要求說明或拒絕簽署",
+    ],
+    action_steps: [
+      "簽約前逐條閱讀，特別注意違約條款、費用及終止條件",
+      "對不清楚的條款要求書面解釋，不要只依賴口頭說明",
+      "留存契約正本或副本，電子契約存檔備份",
+      "重要契約（如房屋、高額借款）建議請律師審閱後再簽",
+    ],
+    warning: "「先簽再說」往往造成難以挽回的損失。任何讓你感到不安或不理解的條款，都有權要求更改或拒絕簽署。",
+    tip: "「法律扶助基金會」提供低收入戶免費律師諮詢服務；一般民眾亦可付費委託律師審閱契約。",
+    related: ["power_of_attorney", "statute_limitation", "evidence_preservation"],
+  },
+  evidence_preservation: {
+    title: "證據保全",
+    category: "生活效率",
+    summary: "有效保全證據是日後提起訴訟或談判的關鍵基礎。",
+    know_your_rights: [
+      "訴訟前可向法院聲請「證據保全」，避免證據滅失",
+      "電子訊息（LINE、Email）在法院具有一定的證據能力",
+      "自行錄音在台灣是否有效依情況而定，建議諮詢律師",
+      "書面通知（存證信函）具有通知確認效力，並可計算時效",
+    ],
+    action_steps: [
+      "發生爭議時立即截圖或拍照保存所有相關訊息",
+      "重要通知使用存證信函（郵局可辦理）",
+      "紙本文件掃描存數位備份，並備份於雲端",
+      "涉及金錢的往來保留匯款記錄和發票收據",
+    ],
+    warning: "電子證據可能因系統清除或APP更新而消失，應盡早備份。部分訊息無法還原，請勿拖延保存。",
+    tip: "「公證人」可對重要文件或事實進行公證，效力更為確定。各地方法院設有「公證處」可辦理。",
+    related: ["contract_sign", "statute_limitation", "power_of_attorney"],
+  },
+  statute_limitation: {
+    title: "時效計算",
+    category: "生活效率",
+    summary: "法律請求權有時效限制，超過期間可能喪失強制執行的權利。",
+    know_your_rights: [
+      "一般民事請求權時效為15年（如借款）",
+      "侵權行為請求權：知道後2年內，或事件發生後10年內",
+      "勞動薪資請求權：5年",
+      "消費者保護法請求權：知道後3年，事件發生後10年",
+      "時效因請求、訴訟或債務承認等行為中斷，重新計算",
+    ],
+    action_steps: [
+      "發生爭議後立即記錄日期，計算請求權時效期限",
+      "在時效屆滿前以書面催告或提起訴訟",
+      "存證信函可作為請求的證明，有效中斷時效",
+      "若不確定時效，應儘早諮詢律師",
+    ],
+    warning: "對方可能以「時效抗辯」拒絕履行義務，一旦超過時效，即使有理有據也可能無法強制求償。",
+    tip: "時效計算從「可以行使請求權時」開始，有時不是從事件發生日起算，建議由專業律師確認。",
+    related: ["contract_sign", "evidence_preservation", "loan"],
+  },
+  defamation: {
+    title: "網路名譽毀損",
+    category: "人際與社交",
+    summary: "網路散布不實言論損害他人名譽，可能構成刑事誹謗罪或民事侵權。",
+    know_your_rights: [
+      "在網路公開散布足以損害他人名譽的不實消息，可構成誹謗罪",
+      "民事上可請求損害賠償（含精神損害）及要求刪除貼文",
+      "即使是在LINE群組等「半公開」空間，也可能構成誹謗",
+      "真實陳述且出於公共利益者，通常不構成誹謗",
+    ],
+    action_steps: [
+      "立即截圖保留完整貼文及連結（含URL、時間戳）",
+      "向平台舉報違規內容，要求下架",
+      "若損害持續，向警察報案提告誹謗或提起民事訴訟",
+      "可聲請法院核發禁制令，要求停止散布",
+    ],
+    warning: "提告前評估是否會引起「反效果」（Streisand effect），有時反而讓更多人關注。策略上可先嘗試協商刪除。",
+    tip: "數位女力聯盟（DEI）等機構提供網路霸凌及名譽侵害的法律諮詢服務，特別針對女性受害者。",
+    related: ["neighbor", "reputation", "partnership"],
+  },
+  copyright: {
+    title: "著作權 / 盜版下載",
+    category: "興趣與娛樂",
+    summary: "著作權保護創作者的智慧財產，使用他人作品需了解授權範圍。",
+    know_your_rights: [
+      "著作權於創作完成時自動取得，不需登記",
+      "未經授權重製、散布受著作權保護的作品，屬於侵權",
+      "個人使用目的的合理使用仍有一定限度",
+      "下載盜版內容在台灣可能面臨民事賠償責任",
+      "著作人格權（如姓名標示權）不得轉讓",
+    ],
+    action_steps: [
+      "使用他人作品前確認授權條款（授權範圍、是否商業使用）",
+      "使用開放授權（如CC授權）的作品，遵守標示要求",
+      "發現作品被侵權，可向平台申請下架並提起訴訟",
+      "商業用途的素材應向合法平台購買授權",
+    ],
+    warning: "「已標示來源」不等於合法使用。使用他人圖片、音樂、文章仍需獲得版權人授權，否則仍構成侵權。",
+    tip: "智慧財產局官網提供著作權相關諮詢服務，亦可電洽免費法律諮詢熱線。",
+    related: ["stream_contract", "ai_copyright", "ticket_refund"],
+  },
+  neighbor: {
+    title: "鄰里噪音 / 界線糾紛",
+    category: "人際與社交",
+    summary: "與鄰居的紛爭可透過調解機制和平解決，了解法律界限有助談判。",
+    know_your_rights: [
+      "噪音超過環保署規定標準，屬違法，可向環保局舉報",
+      "鄰居越界建築或植物侵入，可請求移除或損害賠償",
+      "住宅噪音管制標準：日間60分貝、夜間50分貝（臥室等安靜場所更低）",
+      "公寓大廈住戶有互相尊重的義務，嚴重干擾可向法院申請禁制令",
+    ],
+    action_steps: [
+      "以分貝計或手機APP記錄噪音，時間點、頻率都要記錄",
+      "先以友善書面方式通知對方改善（留存紀錄）",
+      "若無改善，向環保局或警察局舉報",
+      "持續無法解決，向調解委員會申請調解",
+    ],
+    warning: "避免直接與鄰居發生肢體衝突，任何衝突行為可能使你從受害者變成加害者，反而處於不利地位。",
+    tip: "鄉鎮市區調解委員會提供免費的鄰里糾紛調解服務，調解成功具有法院確定判決的效力。",
+    related: ["hoa_dispute", "debt_collection", "defamation"],
+  },
+  scam_investment: {
+    title: "假投資/投資詐騙自救",
+    category: "詐騙與網路犯罪",
+    summary: "假投資是2025年財損最高類型，常以高報酬誘騙持續轉帳，及時報案是關鍵。",
+    know_your_rights: [
+      "立即撥165反詐騙專線或110報案，可爭取即時凍結詐騙帳戶。",
+      "轉帳後24小時內報案，銀行可能協助攔阻或返還部分款項。",
+      "受害人可提刑事告訴（詐欺罪）並附帶民事求償，二者可同時進行。",
+      "報案後可向法律扶助基金會申請扶助（債務/詐欺專案）。",
+    ],
+    action_steps: [
+      "先撥165確認是否詐騙，無論如何立刻停止匯款。",
+      "截圖蒐證：對話記錄、轉帳明細、對方帳戶資訊全部留存。",
+      "到警察局報案（或至165平台線上報案），取得報案三聯單。",
+      "通知轉出銀行凍結帳戶，申請款項返還（24小時內效果最佳）。",
+      "後續訴訟需求可洽法律扶助基金會（412-8518）。",
+    ],
+    warning: "切勿相信聲稱『可幫你追回錢』的第三方，這是常見的第二波詐騙！超過報案時效或未及時凍結，款項幾乎難以追回。",
+    tip: "下載『165反詐騙App』可快速查詢可疑LINE ID、帳號及電話。報案越快，凍結成功率越高。",
+    related: ["scam_friendship", "scam_online_shopping"],
+  },
+  scam_friendship: {
+    title: "假交友/感情詐騙",
+    category: "詐騙與網路犯罪",
+    summary: "以甜言蜜語建立感情後誘導投資或借錢，構成詐欺罪，可刑事告訴並民事求償。",
+    know_your_rights: [
+      "感情詐騙構成詐欺罪，可向警察提刑事告訴。",
+      "有轉帳記錄與對話截圖，可民事求償損失金額。",
+      "若對方持續跟蹤騷擾，可申請保護令。",
+    ],
+    action_steps: [
+      "立即停止聯絡並封鎖對方所有帳號。",
+      "截圖保存所有對話記錄、轉帳明細、對方提供的身份資料。",
+      "撥165或110報案，取得報案證明。",
+      "若涉及借錢或投資，一併納入詐欺告訴範圍。",
+    ],
+    warning: "事後出現宣稱可幫你追回錢的第三方，八成是第二波詐騙，勿再匯款。",
+    tip: "交友App認識的人，建議視訊確認身份再深交。法律扶助基金會有感情及債務相關專案可諮詢。",
+    related: ["scam_investment", "stalking_protection"],
+  },
+  scam_online_shopping: {
+    title: "假網拍/購物詐騙",
+    category: "詐騙與網路犯罪",
+    summary: "假賣家收款後不出貨，可主張詐欺罪並向平台申請退款保障機制。",
+    know_your_rights: [
+      "可同時主張詐欺罪（刑事）及民事返還價金。",
+      "蝦皮、露天等平台設有買家保障機制，符合條件可申請退款。",
+      "小額也應報案，累積可認定為集團詐欺，有助偵辦。",
+    ],
+    action_steps: [
+      "截圖保存商品頁面、對話紀錄、匯款收據、賣家帳號資訊。",
+      "先向購物平台申訴，要求啟動買家保障退款。",
+      "平台未能解決，向165或110報案，取得報案三聯單。",
+    ],
+    warning: "小額詐騙同樣值得報案，不只是為了追款，也有助警方掌握詐騙集團規模。",
+    tip: "購物盡量使用信用卡或第三方支付，發生問題可透過刷退或爭議交易申請保障。",
+    related: ["scam_investment", "cooling_off"],
+  },
+  debt_rehabilitation: {
+    title: "更生程序（債務重整）",
+    category: "債務與消債",
+    summary: "有穩定收入但還款困難者，可向法院聲請更生，執行3至6年還款計畫後，剩餘債務免除。",
+    know_your_rights: [
+      "實務平均還款比例約17%，其餘債務可依法免除。",
+      "更生執行期間，薪資不被強制扣押、財產不被查封（特殊情況除外）。",
+      "適用《消費者債務清理條例》，無嚴格資力門檻，需誠實申報財產。",
+    ],
+    action_steps: [
+      "整理全部債務清單及收入、每月支出證明。",
+      "向戶籍地或主要財產所在地地方法院聲請更生（規費低，可申請法扶協助撰狀）。",
+      "法院裁定開始更生後，提出可行的還款計畫供法院審核。",
+      "依計畫執行完畢後，申請免責裁定。",
+    ],
+    warning: "隱匿財產或收入可能導致更生被撤銷，剩餘債務仍需全額負責，誠實申報至關重要。",
+    tip: "法律扶助基金會2025年債務諮詢申請量最高，撥412-8518可免費諮詢。更生平均還款比例低，但需全程確實執行計畫。",
+    related: ["debt_liquidation", "inheritance_waiver"],
+  },
+  debt_liquidation: {
+    title: "清算程序（破產式免責）",
+    category: "債務與消債",
+    summary: "完全無力還款者，法院變賣財產分配給債權人後，剩餘債務全數免除。",
+    know_your_rights: [
+      "實務平均清償比例約10%，其餘債務可依法全數免除。",
+      "清算後信用記錄受影響，但可重新開始財務生活。",
+      "若名下幾乎無財產，清算程序相對快速。",
+    ],
+    action_steps: [
+      "準備財產清冊（含動產、不動產、銀行帳戶）及債務清單。",
+      "向法院聲請清算（可申請法律扶助協助）。",
+      "法院選任管理人，依序變賣財產並分配給債權人。",
+      "分配完畢後聲請免責裁定。",
+    ],
+    warning: "有財產者，財產將被變賣後分配；隱匿財產的法律後果更嚴重，可能遭刑事追訴。",
+    tip: "名下確實無財產者，清算程序往往比更生更快完成。司法院官網有消債統計資料可查各項平均清償比例。",
+    related: ["debt_rehabilitation"],
+  },
+  stalking_protection: {
+    title: "跟蹤騷擾保護令申請",
+    category: "情感與關係",
+    summary: "遭受跟蹤、騷擾或反覆接觸者，可快速申請保護令，違反者可處刑。",
+    know_your_rights: [
+      "保護令可禁止對方接近、聯絡、通訊及跟蹤。",
+      "違反跟蹤騷擾保護令，可處3年以下有期徒刑。",
+      "言語騷擾、網路騷擾、肢體騷擾均可適用《跟蹤騷擾防制法》。",
+      "緊急保護令當日即可核發。",
+    ],
+    action_steps: [
+      "蒐集證據：騷擾訊息截圖、通聯記錄、照片、目擊者聯絡方式。",
+      "撥113保護專線尋求協助，或直接報警（110）。",
+      "向地方法院聲請保護令（緊急情況警察可代為聲請）。",
+      "保護令核發後，攜帶影本至警察局備案，便於日後快速處理違反情況。",
+    ],
+    warning: "勿單獨與對方見面協商，人身安全優先。一旦發現對方違反保護令，立即報警，不需自行處理。",
+    tip: "衛福部統計顯示言語及網路騷擾案件持續上升，早期申請保護令是最有效的預防手段。騷擾初期就可申請，不需等到肢體衝突發生。",
+    related: ["domestic_violence", "defamation"],
+  },
+  inheritance_waiver: {
+    title: "拋棄繼承（完全不繼承財產與債務）",
+    category: "家庭與育兒",
+    summary: "不想承受債務，可完全拋棄繼承權（民法第1174條）。適用債務大於資產的情況。",
+    know_your_rights: [
+      "拋棄後不繼承任何遺產也不負債務，效力溯及繼承開始日。",
+      "不可撤回，一旦法院准予備查即生效。",
+      "下一順位繼承人自動遞補（你的子女若為直系卑親屬會遞補）。",
+      "規費 NT$1,500（同一順位多人只收一次）。",
+    ],
+    action_steps: [
+      "從『知悉得繼承之時』（通常為死亡日或知悉死訊日）起3個月內聲請，書狀送達法院即算數。",
+      "準備文件：聲請狀（司法院網站有範例）、被繼承人除戶戶籍謄本、你的戶籍謄本＋印鑑證明、繼承系統表。",
+      "向被繼承人死亡時戶籍所在地方法院聲請（現場或掛號郵寄）。",
+      "拋棄後以書面（存證信函或LINE截圖）通知下一順位繼承人。",
+      "法院審核後核發『准予備查』通知（約1至3個月）。",
+    ],
+    warning: "超過3個月未聲請即自動視為限定繼承，勿拖延。若人在國外可委託辦理（需公證）。隱匿遺產可能導致拋棄效力喪失。",
+    tip: "建議先向國稅局申請『金融遺產清單』（免費，約1個月）確認債務全貌。法律扶助基金會（412-8518）或法院家事庭均提供免費諮詢。",
+    related: ["inheritance_limited", "payment_order_objection_after_waiver"],
+  },
+  inheritance_limited: {
+    title: "限定繼承（只用遺產還債，不動個人財產）",
+    category: "家庭與育兒",
+    summary: "現行法律預設制度（民法第1148條），繼承人僅以遺產範圍內清償債務，不影響個人財產。",
+    know_your_rights: [
+      "自動適用限定繼承，不需特別聲請。",
+      "想更明確保護，可在3個月內向法院陳報『遺產清冊』，法院將公告債權人報債（至少6個月）。",
+      "遺產不足清償時，債權人無法追索繼承人的個人財產。",
+      "陳報遺產清冊規費約 NT$1,000 至 1,500 元。",
+    ],
+    action_steps: [
+      "先向國稅局申請金融遺產清單，盤點資產與債務。",
+      "若要正式確立，3個月內向法院聲請陳報遺產清冊。",
+      "法院裁定公告，債權人於期限內申報債權。",
+      "公告期滿後，依比例分配遺產清償各債權人。",
+    ],
+    warning: "不陳報清冊仍適用限定繼承，但若債權人提出爭執，可能需要繼承人自行舉證。隱匿遺產將視為概括繼承，須以個人財產負責。",
+    tip: "若債務不明但想保留部分遺產（如房屋），辦理限定繼承通常優於拋棄。建議洽詢法律扶助基金會協助列清冊，避免漏報。",
+    related: ["inheritance_waiver", "payment_order_objection_after_waiver"],
+  },
+  payment_order_objection_after_waiver: {
+    title: "收到支付命令怎麼辦（已辦或辦理中拋棄繼承）",
+    category: "家庭與育兒",
+    summary: "銀行等債權人常在拋棄繼承完成前就聲請支付命令，收到後務必在20天內提出異議，否則可能遭強制執行。",
+    know_your_rights: [
+      "支付命令送達後20天內可提出異議（民事訴訟法第516條），不需附具體理由。",
+      "異議成功，支付命令失效，案件轉為一般訴訟程序。",
+      "若已完成拋棄繼承，後續訴訟中提交『准予備查函』，法院通常判你勝訴（你已非繼承人）。",
+      "提出異議不影響拋棄繼承的聲請程序，兩者可同步進行。",
+    ],
+    action_steps: [
+      "收到支付命令後立即確認送達日期，20天內務必提出異議（書狀送達法院即算數）。",
+      "撰寫簡單『民事異議狀』：寫明『對該支付命令聲明異議，理由容後詳補』，或附上『已向法院聲請拋棄繼承，案號：XXX』。",
+      "以掛號郵寄或親送至發出支付命令的法院（可參考司法院或各地方法院網站的範本）。",
+      "異議後若進入訴訟，待拋棄繼承准予備查通知下來，提交法院作為主要證據。",
+      "若尚未辦理拋棄繼承，應同步加速辦理（注意3個月時效）。",
+    ],
+    warning: "超過20天未提出異議，支付命令即告確定，債權人可聲請強制執行你的財產！即使事後拋棄繼承成功，已遭扣押的財產補救困難。切勿忽略這份文件。",
+    tip: "異議狀格式極簡單，寫最精簡版（僅聲明異議）也具效力。法律扶助基金會（412-8518）及各法院訴訟輔導科均可免費協助確認書狀內容。",
+    related: ["inheritance_waiver", "inheritance_limited"],
+  },
+};
+
+// ─── 版本日期管理（格式 "YYYY-MM"，每次更新內容時同步修改對應 key）────────────────
+// 超過 6 個月未更新，頁面會自動顯示「建議確認最新法規」警示
+const CONTENT_VERSIONS = {
+  // 工作與職涯
+  labor_contract:    "2026-03",
+  overtime:          "2026-03",
+  dismissal:         "2026-03",
+  unpaid_wage:       "2026-03",
+  work_injury:       "2026-03",
+  workplace_harass:  "2026-03",
+  // 居住與房屋
+  rent_deposit:      "2026-03",
+  leak:              "2026-03",
+  // 交通與移動
+  traffic_accident:      "2026-03",
+  compulsory_insurance:  "2026-03",
+  // 消費與產品
+  cooling_off:       "2026-03",
+  // 家庭與育兒
+  divorce:                              "2026-03",
+  domestic_violence:                    "2026-03",
+  inheritance_waiver:                   "2026-03",
+  inheritance_limited:                  "2026-03",
+  payment_order_objection_after_waiver: "2026-03",
+  // 金錢與投資
+  loan:              "2026-03",
+  // AI 與數位
+  data_breach:       "2026-03",
+  // 生活效率
+  contract_sign:          "2026-03",
+  evidence_preservation:  "2026-03",
+  statute_limitation:     "2026-03",
+  // 人際與社交
+  defamation:  "2026-03",
+  neighbor:    "2026-03",
+  // 興趣與娛樂
+  copyright:   "2026-03",
+  // 詐騙與網路犯罪
+  scam_investment:      "2026-03",
+  scam_friendship:      "2026-03",
+  scam_online_shopping: "2026-03",
+  // 債務與消債
+  debt_rehabilitation: "2026-03",
+  debt_liquidation:    "2026-03",
+  // 情感與關係
+  stalking_protection: "2026-03",
+};
+
+// ─── FAQ 資料 ───────────────────────────────────────────────
+const FAQ_DATA = [
+  {
+    id: "f1", cat: "工作",
+    q: "公司一直叫我加班但不給加班費，我該怎麼辦？",
+    a: `<h4>你的權利</h4>
+<p>勞基法明確規定加班必須給加班費，超時工作是受僱者的明確法定權利，雇主不能以「公司文化」或「職責所在」規避。</p>
+<h4>建議做法</h4>
+<ul>
+  <li>先整理近3~6個月的加班記錄（打卡記錄、Line打卡通知截圖等），計算積欠金額</li>
+  <li>以書面（Email或LINE）向直屬主管或HR說明，要求給付加班費，並保留這份記錄</li>
+  <li>若公司不處理，向當地勞工局提出申訴——申訴免費，勞工局會主動介入調查</li>
+  <li>積欠加班費的請求權為5年，不必擔心時效過短</li>
+</ul>
+<h4>注意事項</h4>
+<p>部分雇主會以「責任制」為由規避加班費。但根據勞基法，除了法定的特定職類（如企業負責人的機要秘書、監督管理職等），一般受僱者不適用責任制，即便公司在契約中約定責任制，這個條款也是無效的。</p>`,
+  },
+  {
+    id: "f2", cat: "租屋",
+    q: "房東不肯退還押金，說要扣我「自然損耗」的維修費，這合法嗎？",
+    a: `<h4>關於「自然損耗」</h4>
+<p>房屋正常使用所造成的合理耗損（如牆壁褪色、地板輕微磨損）屬於「自然損耗」，應由房東承擔，<strong>不能</strong>從押金中扣除。</p>
+<h4>哪些可以扣、哪些不能扣</h4>
+<ul>
+  <li>✅ <strong>可扣</strong>：租客人為造成的損壞（如穿孔牆面未修補、破壞家具）</li>
+  <li>✅ <strong>可扣</strong>：租客離屋後未清理造成的清潔費用</li>
+  <li>❌ <strong>不可扣</strong>：正常使用造成的磨損、舊化</li>
+  <li>❌ <strong>不可扣</strong>：入住前就已存在的損壞（這就是為何入住時要拍照）</li>
+</ul>
+<h4>建議做法</h4>
+<p>以書面（存證信函）要求房東列明扣款明細及理由，並限期退還餘額。若房東拒絕，可向不動產糾紛調解委員會申請調解，或向法院提起小額訴訟。</p>`,
+  },
+  {
+    id: "f3", cat: "消費",
+    q: "網購收到商品，打開後發現不滿意，可以退貨嗎？",
+    a: `<h4>7天猶豫期是你的基本權利</h4>
+<p>依消費者保護法，網路購物（含通訊購物）的消費者享有收到商品後<strong>7天猶豫期</strong>，可無條件退貨，業者不得要求說明理由。</p>
+<h4>重要細節</h4>
+<ul>
+  <li>7天是自然日，不是工作天</li>
+  <li>「退回商品」所需的運費，依業者政策而異，部分須由消費者自行負擔</li>
+  <li>商品必須保持可退貨的狀態（包裝完整為佳，但合理試用不影響退貨權）</li>
+  <li>業者在30天內完成退款</li>
+</ul>
+<h4>哪些商品不適用？</h4>
+<p>量身訂做商品、已拆封且無法回復的衛生用品、生鮮食品、已下載的數位內容等，依法可排除適用。業者應在購買前明確告知，未告知者仍應退貨。</p>`,
+  },
+  {
+    id: "f4", cat: "交通",
+    q: "發生車禍，對方願意私下和解，我應該接受嗎？",
+    a: `<h4>和解需謹慎</h4>
+<p>私下和解本身不是問題，但時機和內容非常關鍵。<strong>請務必在確定傷勢和損失範圍後再進行</strong>。</p>
+<h4>和解前應確認</h4>
+<ul>
+  <li>傷勢是否完全確定（部分傷害如腦震盪後遺症可能延遲出現）</li>
+  <li>所有損失已計算清楚：醫療費、工作損失、車輛修理費、精神慰撫金</li>
+  <li>和解金額是否合理（可參考律師意見）</li>
+  <li>和解書的內容是否寫明「全部損害一次解決」還是「部分」</li>
+</ul>
+<h4>不要急於和解的情況</h4>
+<p>受傷住院、傷勢仍在治療中、尚有後續復健需求時，切勿倉促和解，因為一旦簽署「拋棄其他請求」的條款，日後將無法再追討。</p>`,
+  },
+  {
+    id: "f5", cat: "借貸",
+    q: "借錢給朋友，現在他不還，我可以怎麼追討？",
+    a: `<h4>先了解你的籌碼</h4>
+<p>追討借款的成功率取決於你有多少證據。有書面借據或轉帳記錄，處於有利地位；純口頭約定則較難舉證。</p>
+<h4>追討步驟</h4>
+<ul>
+  <li>先以書面（存證信函或LINE/Email）正式催告，明確要求還款期限</li>
+  <li>若不履行，可向法院聲請「核發支付命令」（費用約新台幣500元起），快速且低成本</li>
+  <li>對方若不異議，支付命令確定後可直接聲請強制執行其財產</li>
+  <li>金額在50萬以下，可向法院提起小額訴訟</li>
+</ul>
+<h4>注意時效</h4>
+<p>借款請求權時效一般為15年，但從「你知道對方違約未還款」時開始計算，請勿拖延太久。</p>`,
+  },
+  {
+    id: "f6", cat: "個資",
+    q: "收到簡訊說我的個資外洩了，我該怎麼辦？",
+    a: `<h4>立即採取的行動</h4>
+<ul>
+  <li>立即更換相關服務的密碼（尤其是金融帳戶、Email）</li>
+  <li>開啟雙重驗證（2FA）保護重要帳戶</li>
+  <li>注意後續詐騙電話——外洩的個資常被用來增加詐騙可信度</li>
+  <li>聯繫銀行，要求監控可疑帳戶異動</li>
+</ul>
+<h4>法律層面</h4>
+<p>依個資法，遭洩漏資料的機構有通知當事人的義務，並需說明外洩原因及補救措施。你有權要求對方刪除你的個資，並可申請損害賠償（每件新台幣500元至2萬元）。</p>
+<h4>如何申訴</h4>
+<p>向個人資料保護委員會或相關主管機關（如金管會、衛福部依行業別）提出申訴，要求調查並要求洩漏機構負責。</p>`,
+  },
+  {
+    id: "f7", cat: "家庭",
+    q: "我遭受家暴，但不想離婚，可以申請保護令嗎？",
+    a: `<h4>保護令與離婚無關</h4>
+<p>申請保護令不代表你必須離婚，兩者是完全獨立的法律程序。保護令的目的是保護你的人身安全，即使繼續婚姻關係也可以申請。</p>
+<h4>保護令的種類</h4>
+<ul>
+  <li><strong>緊急保護令</strong>：有立即危險時，法院當日即可核發</li>
+  <li><strong>暫時保護令</strong>：書面聲請，數日內核發</li>
+  <li><strong>通常保護令</strong>：經審理後核發，效期最長2年</li>
+</ul>
+<h4>如何申請</h4>
+<p>撥打113專線諮詢，或直接向警察局報案請求協助聲請，或自行向法院提出聲請。備妥傷診斷書、照片、警察報案紀錄等證據會更有幫助。</p>`,
+  },
+  {
+    id: "f8", cat: "職場",
+    q: "公司說我的試用期表現不佳要解僱，這樣合法嗎？",
+    a: `<h4>試用期不是「自由解僱期」</h4>
+<p>很多人誤以為試用期雇主可以隨意解僱，但這是錯誤觀念。試用期員工同樣受勞基法保護，雇主解僱仍需有<strong>正當理由</strong>。</p>
+<h4>雇主須注意</h4>
+<ul>
+  <li>解僱需有具體、客觀的不適任事由，且最好有書面記錄（如評核報告）</li>
+  <li>試用期依年資計算，未滿3個月可不預告解僱，但3個月至1年者需預告10天</li>
+  <li>若認定解僱不合法，可向勞工局申訴或提起確認僱傭關係存在之訴</li>
+</ul>
+<h4>你可以主張的</h4>
+<p>要求雇主書面說明解僱理由。若理由不充分或有歧視嫌疑，記錄所有相關溝通，並立即尋求勞工諮詢。</p>`,
+  },
+];
+
+// ─── 自救清單 ─────────────────────────────────────────────────
+const CHECKLIST_ITEMS = [
+  {
+    icon: "📸",
+    title: "立即蒐集證據",
+    desc: "事件發生後，優先保全現場狀態、截圖對話記錄、拍照記錄損害情況。電子訊息可能隨時消失，越早保存越好。",
+    items: ["拍照/截圖現場及損害", "保存所有相關對話（LINE、Email）", "記錄事件經過（時間、人物、地點）", "蒐集目擊者聯絡資料"],
+    color: "card-teal",
+  },
+  {
+    icon: "✉️",
+    title: "書面通知對方",
+    desc: "以書面方式正式通知對方你的主張，這不只是在溝通，更是在建立法律記錄，並讓時效中斷重算。",
+    items: ["發送存證信函（郵局可辦理，約50元起）", "或以Email並要求回信確認", "LINE截圖要開啟時間戳記功能", "保留通知後的所有往來記錄"],
+    color: "card-gold",
+  },
+  {
+    icon: "⏱️",
+    title: "確認時效期限",
+    desc: "法律請求都有時效，過期可能喪失強制求償的權利。盡早確認你的案件適用哪種時效，並在期限前採取行動。",
+    items: ["一般民事請求：15年", "侵權行為（知道後）：2年", "勞資爭議：5年（薪資）", "消費糾紛：知道後3年"],
+    color: "card-teal",
+  },
+  {
+    icon: "🏛️",
+    title: "善用免費資源",
+    desc: "在花錢請律師前，先善用政府提供的免費諮詢和調解服務，許多糾紛在調解階段就能解決。",
+    items: ["1955勞工諮詢申訴專線（勞資）", "1950消費者服務專線（消費糾紛）", "113家暴及性侵害防治專線", "法律扶助基金會（低收入免費律師）", "鄉鎮市區調解委員會（免費調解）"],
+    color: "card-navy",
+  },
+];
+
+// ─── Navigation ──────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toast(msg, bg) {
+  const sb = document.getElementById('snackbar');
+  sb.textContent = msg;
+  sb.style.background = bg || 'var(--navy)';
+  sb.classList.add('show');
+  setTimeout(() => sb.classList.remove('show'), 2500);
+}
+
+// ─── Build category grid ─────────────────────────────────────
+function buildCatGrid() {
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = '';
+  CAT_TREE.forEach((cat, idx) => {
+    const d = document.createElement('div');
+    d.className = 'cat-card';
+    d.innerHTML = `<div class="cat-ic">${cat.ic}</div><div class="cat-nm">${cat.n}</div>`;
+    d.onclick = () => openSub(idx);
+    grid.appendChild(d);
+  });
+}
+
+// ─── Open sub category ──────────────────────────────────────
+let currentCatIdx = -1;
+function openSub(idx) {
+  currentCatIdx = idx;
+  const cat = CAT_TREE[idx];
+  document.getElementById('sub-banner-ic').textContent = cat.ic;
+  document.getElementById('sub-banner-name').textContent = cat.n;
+
+  const grid = document.getElementById('sub-grid');
+  grid.innerHTML = '';
+  cat.subs.forEach(sub => {
+    const d = document.createElement('div');
+    d.className = 'sub-card';
+    d.innerHTML = `<div class="sub-ic">${sub.ic}</div><div class="sub-nm">${sub.nm}</div>`;
+    d.onclick = () => openResult(sub.key, sub.nm, cat.n);
+    grid.appendChild(d);
+  });
+  showPage('page-sub');
+}
+
+// ─── Open result ─────────────────────────────────────────────
+function openResult(key, subName, catName) {
+  const data = LEGAL_KNOWLEDGE[key];
+  const container = document.getElementById('result-content');
+
+  if (!data) {
+    container.innerHTML = `
+      <div class="result-header">
+        <div class="rh-tag">⚖️ ${catName}</div>
+        <h3>${subName}</h3>
+        <div class="rh-sub">基本法律常識</div>
+      </div>
+      <div class="card card-teal" style="padding:16px 20px;margin-bottom:14px">
+        <div style="font-size:13px;line-height:1.7;color:var(--teal)">
+          📌 此分類的詳細內容正在持續建置中。如有急迫問題，建議撥打
+          <strong>1955（勞工諮詢）</strong>、<strong>1950（消費者服務）</strong>
+          或諮詢法律扶助基金會。
+        </div>
+      </div>
+      <div class="tip-box">
+        💡 法律問題因個案不同，建議尋求專業律師或法律扶助基金會的協助，取得針對你情況的具體建議。
+      </div>`;
+    document.getElementById('result-page-title').textContent = subName;
+    showPage('page-result');
+    return;
+  }
+
+  document.getElementById('result-page-title').textContent = data.title;
+
+  // ── 版本計算 ────────────────────────────────────────────────
+  const verStr = CONTENT_VERSIONS[key];   // "YYYY-MM" 或 undefined
+  let versionBadge = '';
+  let staleWarning = '';
+  if (verStr) {
+    const [y, m] = verStr.split('-').map(Number);
+    const now = new Date();
+    const monthsOld = (now.getFullYear() - y) * 12 + (now.getMonth() + 1 - m);
+    versionBadge = `<div class="version-badge">🕐 ${y} 年 ${m} 月版本</div>`;
+    if (monthsOld >= 6) {
+      staleWarning = `
+        <div class="stale-box">
+          🟠 <strong>內容可能需要確認：</strong>此條目最後審核於 ${y} 年 ${m} 月（距今約 ${monthsOld} 個月），相關法規或實務可能已有更新，建議至
+          <strong>全國法規資料庫（law.moj.gov.tw）</strong>確認最新條文，或諮詢律師取得即時意見。
+        </div>`;
+    }
+  }
+
+  let relatedHTML = '';
+  if (data.related && data.related.length) {
+    const items = data.related.map(key => {
+      const d = LEGAL_KNOWLEDGE[key];
+      if (!d) return '';
+      return `<div class="related-item" onclick="openResult('${key}','${d.title}','${d.category}')">
+        ⚖️ <span>${d.title}</span>
+        <span style="margin-left:auto;color:var(--muted);font-size:12px">${d.category} →</span>
+      </div>`;
+    }).join('');
+    relatedHTML = `
+      <div class="section-label">相關主題</div>
+      <div class="related-list">${items}</div>`;
+  }
+
+  container.innerHTML = `
+    <div class="result-header">
+      <div class="rh-tag">⚖️ ${data.category}</div>
+      <h3>${data.title}</h3>
+      <div class="rh-sub">${data.summary}</div>
+      ${versionBadge}
+    </div>
+
+    ${staleWarning}
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic">📜</div>你應該知道的權利
+      </div>
+      <div class="info-content">
+        <ul>${data.know_your_rights.map(r => `<li>${r}</li>`).join('')}</ul>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic">✅</div>建議行動步驟
+      </div>
+      <div class="info-content">
+        <ol style="padding-left:18px">${data.action_steps.map(s => `<li style="margin-bottom:6px">${s}</li>`).join('')}</ol>
+      </div>
+    </div>
+
+    <div class="warning-box mt12">
+      ⚠️ <strong>注意：</strong>${data.warning}
+    </div>
+
+    <div class="tip-box mt8">
+      💡 <strong>實用提示：</strong>${data.tip}
+    </div>
+
+    ${relatedHTML}
+
+    <div class="card" style="margin-top:20px;padding:18px 20px">
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;text-align:center;margin-bottom:14px">
+        本內容僅供一般性法律常識參考，不構成法律建議。<br>
+        具體情況請諮詢專業律師或相關法律機構。
+      </div>
+      <div style="border-top:1.5px solid var(--border);padding-top:14px">
+        <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:8px;font-family:'Noto Serif TC',serif">
+          🆘 需要進一步協助？免費諮詢管道
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;color:var(--slate);line-height:1.6">
+          <div>📞 <strong>412-8518</strong><br><span style="color:var(--muted)">法律扶助基金會</span></div>
+          <div>📞 <strong>1955</strong><br><span style="color:var(--muted)">勞工諮詢申訴</span></div>
+          <div>📞 <strong>1950</strong><br><span style="color:var(--muted)">消費者服務</span></div>
+          <div>📞 <strong>113</strong><br><span style="color:var(--muted)">家暴／跟蹤騷擾（24h）</span></div>
+          <div>📞 <strong>165</strong><br><span style="color:var(--muted)">反詐騙（24h）</span></div>
+          <div>📞 <strong>110</strong><br><span style="color:var(--muted)">緊急報案</span></div>
+        </div>
+      </div>
+    </div>`;
+
+  showPage('page-result');
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────
+function renderFAQ(query) {
+  query = (query || '').trim();
+  const list = document.getElementById('faq-list');
+  const filtered = FAQ_DATA.filter(f =>
+    !query || f.q.includes(query) || f.cat.includes(query) || f.a.includes(query)
+  );
+  list.innerHTML = '';
+  if (!filtered.length) {
+    list.innerHTML = `<div style="text-align:center;padding:40px 0;color:var(--muted)">找不到相關問題</div>`;
+    return;
+  }
+  filtered.forEach(f => {
+    const d = document.createElement('div');
+    d.className = 'qa-item';
+    d.innerHTML = `
+      <div class="q-text">❓ ${f.q}</div>
+      <div class="q-tag">分類：${f.cat}</div>`;
+    d.onclick = () => openFAQAnswer(f);
+    list.appendChild(d);
+  });
+}
+
+function openFAQAnswer(f) {
+  const container = document.getElementById('faq-answer-content');
+  container.innerHTML = `
+    <div style="margin-bottom:4px"><span class="pill pill-teal">${f.cat}</span></div>
+    <div class="faq-q mt8">${f.q}</div>
+    <div class="info-content answer-body" style="margin-top:12px">
+      ${f.a}
+    </div>
+    <div class="card card-teal mt16" style="padding:14px 18px">
+      <div style="font-size:12px;color:var(--teal);line-height:1.7">
+        📌 以上內容為一般性說明，你的具體情況可能有所不同。
+        如問題涉及重大利益，建議向<strong>法律扶助基金會</strong>或<strong>律師</strong>諮詢。
+      </div>
+    </div>
+    <div style="margin-top:16px">
+      <button class="btn btn-teal" onclick="showPage('page-faq')">← 返回所有問題</button>
+    </div>`;
+  showPage('page-faq-answer');
+}
+
+// ─── Checklist ───────────────────────────────────────────────
+function buildChecklist() {
+  const container = document.getElementById('checklist-content');
+  container.innerHTML = CHECKLIST_ITEMS.map((item, i) => `
+    <div class="card ${item.color}" style="margin-top:14px;padding:18px 20px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="font-size:24px">${item.icon}</span>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em">STEP ${i+1}</div>
+          <div style="font-family:'Noto Serif TC',serif;font-size:15px;font-weight:900;color:var(--navy)">${item.title}</div>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--slate);line-height:1.7;margin-bottom:12px">${item.desc}</div>
+      <ul style="padding-left:18px;font-size:13px;color:var(--slate);line-height:1.9">
+        ${item.items.map(it => `<li>${it}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
+
+// ─── SOS Panel ───────────────────────────────────────────────
+function openSOS() {
+  document.getElementById('sos-overlay').classList.add('open');
+}
+function closeSOS(e) {
+  if (!e || e.target === document.getElementById('sos-overlay')) {
+    document.getElementById('sos-overlay').classList.remove('open');
+  }
+}
+
+// ─── Global Search ───────────────────────────────────────────
+function onGlobalSearch(query) {
+  query = (query || '').trim();
+  const clearBtn = document.getElementById('gs-clear-btn');
+  clearBtn.style.display = query ? 'block' : 'none';
+  if (!query) { showPage('page-home'); return; }
+  runGlobalSearch(query);
+}
+
+function clearGlobalSearch() {
+  document.getElementById('global-search-input').value = '';
+  document.getElementById('gs-clear-btn').style.display = 'none';
+  showPage('page-home');
+}
+
+function runGlobalSearch(query) {
+  // 搜尋 LEGAL_KNOWLEDGE
+  const knowledgeResults = Object.entries(LEGAL_KNOWLEDGE).filter(([key, d]) => {
+    if (key === 'placeholder') return false;
+    return (
+      d.title.includes(query) ||
+      d.summary.includes(query) ||
+      d.category.includes(query) ||
+      (d.know_your_rights || []).some(r => r.includes(query)) ||
+      (d.action_steps || []).some(s => s.includes(query)) ||
+      (d.warning || '').includes(query) ||
+      (d.tip || '').includes(query)
+    );
+  });
+
+  // 搜尋 FAQ_DATA
+  const faqResults = FAQ_DATA.filter(f =>
+    f.q.includes(query) || f.cat.includes(query) || f.a.replace(/<[^>]+>/g, '').includes(query)
+  );
+
+  const total = knowledgeResults.length + faqResults.length;
+  document.getElementById('sr-summary').textContent = `找到 ${total} 筆結果`;
+
+  const kDiv = document.getElementById('sr-knowledge');
+  if (knowledgeResults.length) {
+    kDiv.innerHTML = `<div class="sr-section-label">法律常識（${knowledgeResults.length}）</div>` +
+      knowledgeResults.map(([key, d]) => `
+        <div class="sr-item" onclick="openResult('${key}','${d.title}','${d.category}')">
+          <div class="sr-title">${d.title}</div>
+          <div class="sr-meta">${d.category}</div>
+          <div class="sr-desc">${d.summary}</div>
+        </div>`).join('');
+  } else {
+    kDiv.innerHTML = '';
+  }
+
+  const fDiv = document.getElementById('sr-faq');
+  if (faqResults.length) {
+    fDiv.innerHTML = `<div class="sr-section-label">常見問答（${faqResults.length}）</div>` +
+      faqResults.map(f => `
+        <div class="sr-item" onclick="openFAQAnswer(FAQ_DATA.find(x=>x.id==='${f.id}'))">
+          <div class="sr-title">❓ ${f.q}</div>
+          <div class="sr-meta">分類：${f.cat}</div>
+        </div>`).join('');
+  } else {
+    fDiv.innerHTML = '';
+  }
+
+  if (!total) {
+    kDiv.innerHTML = `<div class="sr-empty">找不到「${query}」相關結果<br><span style="font-size:12px">試試其他關鍵字，或直接瀏覽分類</span></div>`;
+    fDiv.innerHTML = '';
+  }
+
+  showPage('page-search');
+}
+
+// ─── Init ────────────────────────────────────────────────────
+buildCatGrid();
+renderFAQ('');
+buildChecklist();
+</script>
+</body>
+</html>
