@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>法律常識小幫手</title>
+<title>生活自保小幫手</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -22,6 +22,11 @@
     --white:   #FFFFFF;
     --red:     #C0392B;
     --red-lt:  #FDECEA;
+    --fraud:    #C0392B;
+    --fraud-dk: #922B21;
+    --fraud-lt: #FDECEA;
+    --fraud-md: #F5B8B3;
+    --law:      #1C2B4A;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -387,29 +392,199 @@
     text-align: center;
   }
   .footer-note { font-size: 11px; color: #BBBBBB; line-height: 1.9; }
+
+  /* ── Entry Duo (Homepage) ── */
+  .entry-duo {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 22px 0;
+  }
+  @media (max-width: 520px) { .entry-duo { grid-template-columns: 1fr; } }
+
+  .entry-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 22px; padding: 22px 20px; cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s, background .15s;
+    position: relative; overflow: hidden;
+  }
+  .entry-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #1C2B4A12; }
+  .entry-card .ec-top-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    border-radius: 22px 22px 0 0;
+  }
+  .entry-card .ec-icon-wrap {
+    width: 50px; height: 50px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 14px; margin-top: 4px;
+  }
+  .entry-card h3 {
+    font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900;
+    margin: 0 0 8px; color: var(--navy);
+  }
+  .entry-card p { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 14px; }
+  .entry-card .ec-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .entry-card .ec-tags span {
+    font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+    background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+  }
+  .entry-card .ec-cta { font-size: 13px; font-weight: 900; letter-spacing: .03em; }
+
+  .fraud-entry:hover { border-color: var(--fraud-md); background: var(--fraud-lt); }
+  .fraud-entry .ec-top-bar { background: var(--fraud); }
+  .fraud-entry .ec-icon-wrap { background: var(--fraud-lt); }
+  .fraud-entry .ec-cta { color: var(--fraud); }
+
+  .law-entry:hover { border-color: var(--teal-md); background: var(--teal-lt); }
+  .law-entry .ec-top-bar { background: var(--teal); }
+  .law-entry .ec-icon-wrap { background: var(--teal-lt); }
+  .law-entry .ec-cta { color: var(--teal); }
+
+  /* ── Fraud Pages ── */
+  .fraud-header {
+    background: linear-gradient(135deg, var(--fraud) 0%, #E74C3C 100%);
+    border-radius: 20px; padding: 22px 24px; color: white; margin-bottom: 16px;
+  }
+  .fraud-header .fh-tag { font-size: 11px; opacity: .75; font-weight: 700; letter-spacing: .06em; margin-bottom: 8px; }
+  .fraud-header h3 { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; line-height: 1.4; }
+  .fraud-header .fh-sub { font-size: 12px; opacity: .75; margin-top: 6px; }
+
+  .fraud-type-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 18px; padding: 18px 20px; cursor: pointer;
+    transition: border-color .15s, background .15s, transform .12s;
+    margin-bottom: 10px;
+  }
+  .fraud-type-card:hover { border-color: var(--fraud-md); background: var(--fraud-lt); transform: translateX(4px); }
+  .fraud-type-card .ft-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .fraud-type-card .ft-icon { font-size: 28px; flex-shrink: 0; }
+  .fraud-type-card .ft-name { font-family: 'Noto Serif TC', serif; font-size: 16px; font-weight: 900; color: var(--navy); }
+  .fraud-type-card .ft-badge {
+    margin-left: auto; font-size: 10px; font-weight: 900; padding: 3px 8px;
+    border-radius: 10px; flex-shrink: 0;
+  }
+  .ft-badge-high { background: var(--fraud-lt); color: var(--fraud); border: 1px solid var(--fraud-md); }
+  .ft-badge-med  { background: #FFF4E6; color: #B7770D; border: 1px solid #F5A623; }
+  .ft-badge-low  { background: var(--teal-lt); color: var(--teal); border: 1px solid var(--teal-md); }
+  .fraud-type-card .ft-desc { font-size: 12px; color: var(--slate); line-height: 1.7; }
+  .fraud-type-card .ft-signals { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .fraud-type-card .ft-signal {
+    font-size: 11px; padding: 2px 8px; border-radius: 12px;
+    background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+  }
+
+  .risk-card {
+    border-radius: 18px; padding: 20px 22px; margin-bottom: 14px;
+  }
+  .risk-high  { background: var(--fraud-lt); border: 2px solid var(--fraud-md); }
+  .risk-med   { background: #FFF4E6; border: 2px solid #F5A623; }
+  .risk-low   { background: var(--teal-lt); border: 2px solid var(--teal-md); }
+
+  .risk-label { font-size: 18px; font-weight: 900; font-family: 'Noto Serif TC', serif; }
+  .risk-high  .risk-label { color: var(--fraud); }
+  .risk-med   .risk-label { color: #7A4800; }
+  .risk-low   .risk-label { color: var(--teal); }
+
+  .check-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 14px 16px; margin-bottom: 8px;
+    cursor: pointer; transition: border-color .15s;
+    user-select: none;
+  }
+  .check-item.checked { background: var(--fraud-lt); border-color: var(--fraud-md); }
+  .check-item .ci-box {
+    width: 22px; height: 22px; border-radius: 6px;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; transition: background .15s, border-color .15s;
+    margin-top: 2px;
+  }
+  .check-item.checked .ci-box { background: var(--fraud); border-color: var(--fraud); color: white; }
+  .check-item .ci-text { font-size: 13px; color: var(--navy); line-height: 1.65; }
+  .check-item .ci-text strong { color: var(--fraud); }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════ HOME ════════════════════ -->
+<!-- ════════════════════ HOME (入口選擇) ════════════════════ -->
 <div id="page-home" class="page active">
-  <div class="top-bar">
-    <div class="logo-mark">⚖️</div>
-    <div class="logo-txt">法律常識小幫手</div>
+  <div class="top-bar" style="padding-top:20px">
+    <div class="logo-mark">🛡️</div>
+    <div class="logo-txt">生活自保小幫手</div>
   </div>
 
-  <div class="hero">
-    <div class="hero-title">遇到法律問題，<br><span class="accent">先懂基本常識</span></div>
+  <div class="hero" style="margin:20px 0 8px">
+    <div class="hero-title">遇到問題，<br><span class="accent">先學會自保</span></div>
     <div class="divider"></div>
-    <div class="hero-sub">生活中大小法律情境一次查清楚<br>了解你的權利，從容面對每一個狀況</div>
-    <div style="margin-top:10px;font-size:12px;color:var(--red);line-height:1.7">
-      找不到答案？別慌！直接撥打法律扶助 <strong>412-8518</strong> 或 <strong>165</strong> 反詐專線，專業人員會陪你一步步處理。
+    <div class="hero-sub">防詐識騙・法律常識，一站搞定<br>保護自己，從了解開始</div>
+  </div>
+
+  <div class="entry-duo mt20">
+    <div class="entry-card fraud-entry" onclick="showPage('page-fraud-home')">
+      <div class="ec-top-bar"></div>
+      <div class="ec-icon-wrap">🔍</div>
+      <h3>防詐辨識</h3>
+      <p>辨識詐騙手法、自我風險檢測、遭詐後緊急應對</p>
+      <div class="ec-tags">
+        <span>#投資詐騙</span>
+        <span>#釣魚簡訊</span>
+        <span>#假客服</span>
+      </div>
+      <div class="ec-cta">立即辨識 →</div>
+    </div>
+
+    <div class="entry-card law-entry" onclick="showPage('page-law-home')">
+      <div class="ec-top-bar"></div>
+      <div class="ec-icon-wrap">⚖️</div>
+      <h3>法律常識</h3>
+      <p>租屋、勞資、消費、家事——生活法律知識一次查</p>
+      <div class="ec-tags">
+        <span>#租屋糾紛</span>
+        <span>#職場問題</span>
+        <span>#消費保護</span>
+      </div>
+      <div class="ec-cta">查詢知識 →</div>
     </div>
   </div>
 
-  <div class="global-search-wrap">
+  <div class="card card-teal mt20" style="padding:16px 20px">
+    <div style="font-size:12px;font-weight:900;color:var(--navy);margin-bottom:10px;font-family:'Noto Serif TC',serif">
+      🆘 緊急狀況？立即撥打
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+      <div style="background:white;border-radius:10px;padding:10px 6px;border:1.5px solid var(--fraud-md)">
+        <div style="font-size:20px;font-weight:900;color:var(--fraud);font-family:'Noto Serif TC',serif">165</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4">反詐騙專線<br>（24h）</div>
+      </div>
+      <div style="background:white;border-radius:10px;padding:10px 6px;border:1.5px solid var(--border)">
+        <div style="font-size:20px;font-weight:900;color:var(--navy);font-family:'Noto Serif TC',serif">110</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4">警察<br>緊急報案</div>
+      </div>
+      <div style="background:white;border-radius:10px;padding:10px 6px;border:1.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:900;color:var(--navy);font-family:'Noto Serif TC',serif;line-height:1.4;padding-top:2px">412<br>-8518</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;line-height:1.4">法律<br>扶助基金會</div>
+      </div>
+    </div>
+  </div>
+
+  <footer-bar>
+    <div class="footer-note">
+      本工具提供之資訊僅供參考，不構成任何法律建議<br>
+      重要事項請諮詢專業律師或向相關機構求助
+    </div>
+  </footer-bar>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ LAW HOME ════════════════════ -->
+<div id="page-law-home" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <h2>⚖️ 法律常識</h2>
+  </div>
+
+  <div class="global-search-wrap" style="margin-top:12px">
     <span class="gs-ic">🔍</span>
-    <input type="text" id="global-search-input" placeholder="搜尋法律問題，例如：押金、加班費、詐騙..." oninput="onGlobalSearch(this.value)">
+    <input type="text" id="global-search-input" placeholder="搜尋法律問題，例如：押金、加班費..." oninput="onGlobalSearch(this.value)">
     <button class="gs-clear" id="gs-clear-btn" onclick="clearGlobalSearch()">✕</button>
   </div>
 
@@ -454,7 +629,7 @@
     </div>
   </div>
 
-  <div class="board-entry" onclick="showPage('page-checklist')">
+  <div class="board-entry mt16" onclick="showPage('page-checklist')">
     <div style="font-size:40px">📋</div>
     <div style="font-family:'Noto Serif TC',serif;font-size:18px;font-weight:900;margin:6px 0;color:var(--navy)">遇到糾紛，你該做什麼？</div>
     <div style="font-size:13px;color:var(--muted);line-height:1.6">蒐集證據、時效計算、找資源——<br>一張清單幫你理清頭緒，不慌不忙應對法律問題。</div>
@@ -464,34 +639,128 @@
   </div>
 
   <div class="warning-box mt20" style="background:var(--red-lt);border-color:#F5B8B3;color:var(--red)">
-    ⚠️ <strong>如果你在這個工具裡沒找到你遇到的問題，切勿慌張！</strong><br>
-    請立即聯繫以下單位，他們提供免費或低成本諮詢：
+    ⚠️ <strong>找不到答案？請聯繫以下單位：</strong>
     <ul style="margin-top:8px;padding-left:20px;font-size:13px;line-height:2">
-      <li>法律扶助基金會（免費法律諮詢）：412-8518 或 <a href="https://www.laf.org.tw" target="_blank" style="color:var(--red)">官網預約</a></li>
-      <li>各縣市法律扶助分會（就近諮詢）：台南分會 06-215-1120</li>
+      <li>法律扶助基金會（免費法律諮詢）：<strong>412-8518</strong> 或 <a href="https://www.laf.org.tw" target="_blank" style="color:var(--red)">官網預約</a></li>
       <li>勞工問題：勞動部 <strong>1955</strong> 專線（免費）</li>
       <li>消費者問題：消費者服務專線 <strong>1950</strong></li>
       <li>家暴／性騷擾／跟蹤：<strong>113</strong> 保護專線（24小時）</li>
       <li>詐騙急報：<strong>165</strong> 反詐騙專線（24小時）</li>
-      <li>緊急報案：<strong>110</strong></li>
     </ul>
-    專業單位能根據你的實際情況給予客製化建議，這才是最安全的做法。
   </div>
 
   <footer-bar>
     <div class="footer-note">
       本工具提供之法律常識資訊僅供參考，不構成任何法律建議<br>
-      法律問題因個案差異而不同，重要事項請諮詢專業律師<br>
-      資料依據中華民國現行法規整理
+      法律問題因個案差異而不同，重要事項請諮詢專業律師
     </div>
   </footer-bar>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FRAUD HOME ════════════════════ -->
+<div id="page-fraud-home" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <h2>🔍 防詐辨識</h2>
+  </div>
+
+  <div class="fraud-header mt8">
+    <div class="fh-tag">⚠️ 詐騙辨識工具</div>
+    <h3>收到可疑訊息？先做辨識</h3>
+    <div class="fh-sub">台灣每年詐騙損失逾百億，多認識一種手法就多一分保護</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0">
+    <div class="cat-card" style="border-color:var(--fraud-md)" onclick="showPage('page-fraud-types')">
+      <div class="cat-ic">📋</div>
+      <div class="cat-nm">詐騙手法<br>圖鑑</div>
+    </div>
+    <div class="cat-card" style="border-color:var(--fraud-md)" onclick="showPage('page-fraud-check')">
+      <div class="cat-ic">🧪</div>
+      <div class="cat-nm">我收到的<br>是詐騙嗎？</div>
+    </div>
+    <div class="cat-card" style="border-color:var(--fraud-md)" onclick="showPage('page-fraud-response')">
+      <div class="cat-ic">🚨</div>
+      <div class="cat-nm">我被詐騙了<br>怎麼辦？</div>
+    </div>
+  </div>
+
+  <div class="card card-teal" style="padding:14px 18px;margin-bottom:12px">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px">📊 2025 年台灣十大詐騙類型</div>
+    <div style="font-size:12px;color:var(--slate);line-height:2">
+      1️⃣ 假投資詐騙（損失最高）　2️⃣ 解除分期付款詐騙<br>
+      3️⃣ 假網路購物詐騙　4️⃣ 假愛情交友詐騙<br>
+      5️⃣ 釣魚簡訊／假客服　6️⃣ 假冒公務員詐騙<br>
+      7️⃣ 工作詐騙（假求職）　8️⃣ 網路博弈詐騙<br>
+      9️⃣ 假冒親友緊急求助　🔟 個資外洩後詐騙
+    </div>
+  </div>
+
+  <div class="warning-box">
+    🆘 <strong>懷疑被詐騙，立即撥打 165 反詐騙專線（24小時）</strong><br>
+    <span style="font-size:12px">越快通報，阻止匯款機會越大。錢轉出後 24 小時內是黃金期。</span>
+  </div>
+
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FRAUD TYPES ════════════════════ -->
+<div id="page-fraud-types" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-fraud-home')">←</button>
+    <h2>詐騙手法圖鑑</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px;margin-bottom:16px">認識常見手法，提高辨識能力</div>
+
+  <div id="fraud-types-list"></div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FRAUD CHECK ════════════════════ -->
+<div id="page-fraud-check" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-fraud-home')">←</button>
+    <h2>詐騙風險自我檢測</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px">勾選你遇到的狀況，系統自動評估風險等級</div>
+
+  <div class="fraud-header mt16" style="padding:16px 20px">
+    <div class="fh-tag">📋 自我檢測</div>
+    <h3>你收到的訊息有這些特徵嗎？</h3>
+    <div class="fh-sub">勾選越多，風險越高</div>
+  </div>
+
+  <div id="fraud-checklist" class="mt12"></div>
+
+  <div style="margin:16px 0">
+    <button class="btn btn-teal" onclick="analyzeFraudCheck()">🔍 分析風險等級</button>
+  </div>
+
+  <div id="fraud-check-result" style="display:none"></div>
+
+  <div class="tip-box mt12">
+    💡 此工具僅提供參考，無法保證百分之百準確。如有疑慮，請立即撥打 <strong>165</strong> 尋求專業判斷。
+  </div>
+  <div class="mb40"></div>
+</div>
+
+<!-- ════════════════════ FRAUD RESPONSE ════════════════════ -->
+<div id="page-fraud-response" class="page">
+  <div class="page-header">
+    <button class="back-btn" onclick="showPage('page-fraud-home')">←</button>
+    <h2>我被詐騙了怎麼辦</h2>
+  </div>
+  <div style="font-size:13px;color:var(--muted);margin-top:2px">保持冷靜，按步驟處理，時間就是關鍵</div>
+
+  <div id="fraud-response-content" class="mt12"></div>
   <div class="mb40"></div>
 </div>
 
 <!-- ════════════════════ FLOW（類別選擇）════════════════════ -->
 <div id="page-flow" class="page">
   <div class="page-header">
-    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <button class="back-btn" onclick="showPage('page-law-home')">←</button>
     <h2>選擇情境類別</h2>
   </div>
   <div style="font-size:13px;color:var(--muted);margin-top:2px">選擇與你情況最相近的大類</div>
@@ -526,7 +795,7 @@
 <!-- ════════════════════ FAQ ════════════════════ -->
 <div id="page-faq" class="page">
   <div class="page-header">
-    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <button class="back-btn" onclick="showPage('page-law-home')">←</button>
     <h2>常見法律Q&A</h2>
   </div>
   <div style="font-size:13px;color:var(--muted);margin-top:2px">點擊問題查看解答</div>
@@ -553,7 +822,7 @@
 <!-- ════════════════════ CHECKLIST ════════════════════ -->
 <div id="page-checklist" class="page">
   <div class="page-header">
-    <button class="back-btn" onclick="showPage('page-home')">←</button>
+    <button class="back-btn" onclick="showPage('page-law-home')">←</button>
     <h2>自救行動清單</h2>
   </div>
   <div style="font-size:13px;color:var(--muted);margin-top:2px">遇到法律糾紛時，按步驟處理</div>
@@ -631,137 +900,90 @@
 <script>
 // ─── Data ──────────────────────────────────────────────────────
 const CAT_TREE = [
-  { ic:"🧑‍⚖️", n:"人生階段",
-    subs:[
-      { nm:"成年宣告", ic:"🧑", key:"adult_declare" },
-      { nm:"監護制度", ic:"🛡️", key:"guardianship" },
-      { nm:"成年後權利義務", ic:"📜", key:"adult_rights" },
+  {
+    ic: "🏠",
+    n: "租屋與居住",
+    subs: [
+      { nm: "押金不退／扣太多", ic: "💰", key: "rent_deposit" },
+      { nm: "提前解約／違約金", ic: "🚪", key: "early_termination" },
+      { nm: "漏水、壁癌誰負責", ic: "💧", key: "leak" },
+      { nm: "房東亂漲租／不修繕", ic: "📈", key: "rent_increase" },
+      { nm: "鄰居噪音／高空拋物", ic: "🔊", key: "neighbor_nuisance" },
+      { nm: "大樓管委會糾紛", ic: "🏢", key: "hoa_dispute" },
     ]
   },
-  { ic:"💼", n:"工作與職涯",
-    subs:[
-      { nm:"勞動契約", ic:"📋", key:"labor_contract" },
-      { nm:"加班與休假", ic:"⏰", key:"overtime" },
-      { nm:"資遣與離職", ic:"🚪", key:"dismissal" },
-      { nm:"欠薪", ic:"💸", key:"unpaid_wage" },
-      { nm:"職業災害", ic:"🦺", key:"work_injury" },
-      { nm:"職場霸凌/性騷擾", ic:"🚫", key:"workplace_harass" },
+  {
+    ic: "💼",
+    n: "工作與職場",
+    subs: [
+      { nm: "加班費沒給／責任制", ic: "⏰", key: "overtime" },
+      { nm: "被資遣／被開除", ic: "🚪", key: "dismissal" },
+      { nm: "欠薪怎麼追", ic: "💸", key: "unpaid_wage" },
+      { nm: "職災／職業傷病", ic: "🦺", key: "work_injury" },
+      { nm: "職場霸凌／性騷擾", ic: "🚫", key: "workplace_harass" },
+      { nm: "試用期被炒", ic: "🧪", key: "probation_dismissal" },
+      { nm: "離職證明／勞保爭議", ic: "📄", key: "resignation_proof" },
     ]
   },
-  { ic:"💰", n:"金錢與投資",
-    subs:[
-      { nm:"借貸與欠債", ic:"🤝", key:"loan" },
-      { nm:"信用卡/分期", ic:"💳", key:"credit_card" },
-      { nm:"投資詐騙", ic:"⚠️", key:"invest_fraud" },
-      { nm:"債務清理/更生", ic:"🔄", key:"debt_rehab" },
+  {
+    ic: "🛒",
+    n: "消費與購物",
+    subs: [
+      { nm: "網購 7 天退貨", ic: "📦", key: "cooling_off" },
+      { nm: "收到瑕疵品／假貨", ic: "🛑", key: "defective_goods" },
+      { nm: "廣告不實／誇大療效", ic: "📢", key: "false_ad" },
+      { nm: "直播購物／團購糾紛", ic: "📱", key: "live_shopping" },
+      { nm: "分期／信用卡爭議", ic: "💳", key: "credit_card" },
     ]
   },
-  { ic:"🏥", n:"健康與身體",
-    subs:[
-      { nm:"醫療糾紛", ic:"🩺", key:"medical_dispute" },
-      { nm:"醫療同意書", ic:"📝", key:"medical_consent" },
-      { nm:"身心障礙權益", ic:"♿", key:"disability_rights" },
+  {
+    ic: "⚠️",
+    n: "詐騙與網路安全",
+    subs: [
+      { nm: "假投資／假交友詐騙", ic: "💔", key: "scam_investment" },
+      { nm: "釣魚簡訊／假客服", ic: "📩", key: "phishing_scam" },
+      { nm: "個資外洩怎麼辦", ic: "🔒", key: "data_breach" },
+      { nm: "帳號被盜／數位遺產", ic: "📱", key: "account_hacked" },
     ]
   },
-  { ic:"❤️", n:"情感與關係",
-    subs:[
-      { nm:"同居財產", ic:"🏠", key:"cohabitation" },
-      { nm:"婚前協議", ic:"💍", key:"prenuptial" },
-      { nm:"性騷擾/跟蹤", ic:"🚫", key:"sexual_harass" },
-      { nm:"偷拍/深偽侵權", ic:"📷", key:"deepfake" },
-      { nm:"跟蹤騷擾保護令", ic:"🛡️", key:"stalking_protection" },
+  {
+    ic: "🚗",
+    n: "交通與車禍",
+    subs: [
+      { nm: "車禍和解／賠償", ic: "💥", key: "traffic_accident" },
+      { nm: "強制險／商業險爭議", ic: "🛡️", key: "compulsory_insurance" },
+      { nm: "酒駕／毒駕後果", ic: "🍺", key: "drunk_driving" },
+      { nm: "交通罰單異議", ic: "📄", key: "traffic_fine" },
     ]
   },
-  { ic:"👨‍👩‍👧", n:"家庭與育兒",
-    subs:[
-      { nm:"結婚登記", ic:"💒", key:"marriage_reg" },
-      { nm:"離婚與監護權", ic:"⚖️", key:"divorce" },
-      { nm:"扶養費/贍養費", ic:"💰", key:"alimony" },
-      { nm:"家暴保護令", ic:"🛡️", key:"domestic_violence" },
-      { nm:"拋棄繼承", ic:"⚰️", key:"inheritance_waiver" },
-      { nm:"限定繼承", ic:"🏦", key:"inheritance_limited" },
-      { nm:"支付命令異議", ic:"📬", key:"payment_order_objection_after_waiver" },
+  {
+    ic: "❤️",
+    n: "感情、婚姻與家庭",
+    subs: [
+      { nm: "離婚／監護權／扶養費", ic: "⚖️", key: "divorce" },
+      { nm: "家暴／保護令申請", ic: "🛡️", key: "domestic_violence" },
+      { nm: "同居分手財產怎麼分", ic: "🏠", key: "cohabitation" },
+      { nm: "婚前／婚後財產約定", ic: "💍", key: "prenuptial" },
+      { nm: "遺產繼承／拋棄繼承", ic: "⚰️", key: "inheritance_waiver" },
     ]
   },
-  { ic:"🏠", n:"居住與房屋",
-    subs:[
-      { nm:"押金/提前解約", ic:"🔑", key:"rent_deposit" },
-      { nm:"漏水糾紛", ic:"💧", key:"leak" },
-      { nm:"買賣瑕疵擔保", ic:"🏡", key:"property_defect" },
-      { nm:"管委會糾紛", ic:"🏢", key:"hoa_dispute" },
+  {
+    ic: "💰",
+    n: "借錢與欠債",
+    subs: [
+      { nm: "借錢給別人追不回", ic: "🤝", key: "loan" },
+      { nm: "欠債怎麼處理／更生", ic: "🔄", key: "debt_rehabilitation" },
+      { nm: "信用卡債務協商", ic: "💳", key: "credit_card_debt" },
     ]
   },
-  { ic:"🚗", n:"交通與移動",
-    subs:[
-      { nm:"交通事故和解", ic:"💥", key:"traffic_accident" },
-      { nm:"強制汽車責任險", ic:"🛡️", key:"compulsory_insurance" },
-      { nm:"酒駕/毒駕", ic:"🍺", key:"drunk_driving" },
-      { nm:"違規罰單", ic:"📄", key:"traffic_fine" },
-    ]
-  },
-  { ic:"🛒", n:"消費與產品",
-    subs:[
-      { nm:"7天猶豫期", ic:"📦", key:"cooling_off" },
-      { nm:"瑕疵商品退換", ic:"🔄", key:"defective_goods" },
-      { nm:"網路詐騙", ic:"💻", key:"online_fraud" },
-      { nm:"廣告不實", ic:"📢", key:"false_ad" },
-    ]
-  },
-  { ic:"🤖", n:"AI與數位",
-    subs:[
-      { nm:"個資外洩", ic:"🔓", key:"data_breach" },
-      { nm:"AI生成內容侵權", ic:"🤖", key:"ai_copyright" },
-      { nm:"數位帳號繼承", ic:"📱", key:"digital_inheritance" },
-    ]
-  },
-  { ic:"🎨", n:"興趣與娛樂",
-    subs:[
-      { nm:"著作權/盜版", ic:"©️", key:"copyright" },
-      { nm:"直播合約糾紛", ic:"📡", key:"stream_contract" },
-      { nm:"票券退費", ic:"🎟️", key:"ticket_refund" },
-    ]
-  },
-  { ic:"🤝", n:"人際與社交",
-    subs:[
-      { nm:"借錢不還", ic:"💸", key:"debt_collection" },
-      { nm:"合夥糾紛", ic:"🤝", key:"partnership" },
-      { nm:"鄰里噪音/界線", ic:"🏘️", key:"neighbor" },
-      { nm:"網路名譽毀損", ic:"💬", key:"defamation" },
-    ]
-  },
-  { ic:"✨", n:"外貌與形象",
-    subs:[
-      { nm:"整形醫療糾紛", ic:"💉", key:"cosmetic_dispute" },
-      { nm:"肖像權侵害", ic:"🖼️", key:"portrait_rights" },
-      { nm:"名譽毀損", ic:"💬", key:"reputation" },
-    ]
-  },
-  { ic:"🧘", n:"心理與壓力",
-    subs:[
-      { nm:"精神疾病就業權益", ic:"🧠", key:"mental_employment" },
-      { nm:"強制住院規定", ic:"🏥", key:"involuntary_commit" },
-      { nm:"心理諮商保密", ic:"🔒", key:"counseling_privacy" },
-    ]
-  },
-  { ic:"📄", n:"生活效率",
-    subs:[
-      { nm:"契約簽署注意", ic:"✍️", key:"contract_sign" },
-      { nm:"授權書/委託書", ic:"📜", key:"power_of_attorney" },
-      { nm:"時效計算", ic:"⏱️", key:"statute_limitation" },
-      { nm:"證據保全", ic:"🗂️", key:"evidence_preservation" },
-    ]
-  },
-  { ic:"🚨", n:"詐騙與網路犯罪",
-    subs:[
-      { nm:"假投資詐騙", ic:"📈", key:"scam_investment" },
-      { nm:"假交友/感情詐騙", ic:"💔", key:"scam_friendship" },
-      { nm:"假網拍/購物詐騙", ic:"🛍️", key:"scam_online_shopping" },
-    ]
-  },
-  { ic:"💳", n:"債務與消債",
-    subs:[
-      { nm:"更生程序", ic:"🔄", key:"debt_rehabilitation" },
-      { nm:"清算程序", ic:"⚖️", key:"debt_liquidation" },
+  {
+    ic: "🏥",
+    n: "醫療、健康與其他",
+    subs: [
+      { nm: "醫療糾紛／手術同意", ic: "🩺", key: "medical_dispute" },
+      { nm: "被偷拍／照片被盜用", ic: "📸", key: "portrait_rights" },
+      { nm: "跟蹤／騷擾保護令", ic: "🛡️", key: "stalking_protection" },
+      { nm: "寵物受傷／動物糾紛", ic: "🐶", key: "pet_dispute" },
     ]
   },
 ];
@@ -1055,7 +1277,7 @@ const LEGAL_KNOWLEDGE = {
     ],
     warning: "民間借貸利率不得超過年利率16%，超過部分無效。若遭遇「地下錢莊」式暴力催收，應立即報警。",
     tip: "若欠款金額在50萬以下，可向簡易庭提起小額訴訟，手續簡便，費用較低。",
-    related: ["credit_card", "debt_rehab", "debt_collection"],
+    related: ["credit_card", "debt_rehabilitation", "debt_collection"],
   },
   data_breach: {
     title: "個資外洩",
@@ -1377,6 +1599,658 @@ const LEGAL_KNOWLEDGE = {
     tip: "異議狀格式極簡單，寫最精簡版（僅聲明異議）也具效力。法律扶助基金會（412-8518）及各法院訴訟輔導科均可免費協助確認書狀內容。",
     related: ["inheritance_waiver", "inheritance_limited"],
   },
+  credit_card: {
+    title: "信用卡循環利息與分期爭議",
+    category: "金錢與投資",
+    summary: "信用卡未全額還款會產生高額循環利息，分期也常有隱藏手續費，及早管理可避免債務惡化。",
+    know_your_rights: [
+      "循環信用利率上限由金管會公告（目前約15%），銀行須清楚告知",
+      "分期手續費應事前揭露，消費者有權拒絕不明確方案",
+      "可向銀行申請調整還款方式或一次免息分期",
+      "債務整合方案需小心，多為高利續借陷阱",
+    ],
+    action_steps: [
+      "每月帳單出來立即核對消費與分期明細",
+      "無法全額還款時，先打銀行客服申請「帳單分期」或減額循環",
+      "收到催收通知，記錄對方資訊並保留通話證據",
+      "債務過重可撥412-8518法律扶助諮詢，或聲請法院更生/清算",
+    ],
+    warning: "絕對避免「以卡養卡」或找代辦整合債務，多數是第二波詐騙。逾期超過90天會影響信用紀錄（聯徵中心）。",
+    tip: "開啟銀行App消費即時通知，每月設定自動扣全額。債務壓力大，先找免費法律扶助，不要輕信代辦廣告。",
+    related: ["loan", "debt_rehabilitation", "scam_investment"],
+  },
+  medical_dispute: {
+    title: "醫療糾紛與醫療疏失",
+    category: "健康與身體",
+    summary: "醫療過程若有疏失或未充分告知，可主張損害賠償，但舉證責任較重，建議先申請鑑定。",
+    know_your_rights: [
+      "醫師有醫療注意義務及告知義務（醫療法第64條）",
+      "可免費索取完整病歷副本（7天內）",
+      "可申請衛福部醫事審議委員會鑑定（免費）",
+      "侵權損害賠償時效：知悉損害後2年",
+    ],
+    action_steps: [
+      "立即向醫院索取完整病歷並拍照備份",
+      "蒐集診斷書、報告、醫病對話紀錄",
+      "先書面（存證信函）向醫院要求說明與協商",
+      "協商不成申請醫事審議委員會鑑定",
+    ],
+    warning: "醫療訴訟勝率偏低（約20–30%），直接起訴前務必先鑑定。勿在網路公開指名醫院或醫師，易反被提告妨害名譽。",
+    tip: "保留所有就醫單據與照片。法律扶助基金會有醫療糾紛專案，撥412-8518可免費評估。",
+    related: ["medical_consent", "cosmetic_dispute"],
+  },
+  debt_collection: {
+    title: "借錢給朋友不還怎麼追",
+    category: "人際與社交",
+    summary: "追討借款關鍵在證據，口頭約定難舉證，有轉帳或借據勝算大。",
+    know_your_rights: [
+      "借款請求權時效15年（從可請求時起算）",
+      "可向法院聲請支付命令（費用低、快速）",
+      "50萬以下可走小額訴訟，程序簡易",
+    ],
+    action_steps: [
+      "用存證信函或正式LINE催告，限期還款",
+      "保留轉帳紀錄、借據、對話截圖",
+      "對方不理，向地方法院聲請支付命令",
+      "支付命令確定後可強制執行財產",
+    ],
+    warning: "勿用暴力或恐嚇討債，否則自己觸犯恐嚇罪。親友借貸常因翻臉傷感情，建議一開始就立借據。",
+    tip: "借據最好有見證人或公證。金額小用小額訴訟最划算，費用約千元內。",
+    related: ["loan", "debt_rehabilitation"],
+  },
+  property_defect: {
+    title: "買賣房屋瑕疵擔保",
+    category: "居住與房屋",
+    summary: "買房後發現漏水、結構裂縫等重大瑕疵，賣方須負責修復或減價。",
+    know_your_rights: [
+      "民法第354條：出賣人對隱藏瑕疵負擔保責任",
+      "重大瑕疵可減價、解除契約或求償",
+      "一般瑕疵發現後6個月內主張",
+    ],
+    action_steps: [
+      "交屋驗屋時拍照記錄所有問題",
+      "發現瑕疵立即書面通知賣方（存證信函）",
+      "無法協商申請不動產糾紛調解委員會",
+      "必要時提起民事訴訟",
+    ],
+    warning: "許多買賣契約有「免除瑕疵擔保」條款，若簽署可能喪失權利。驗屋報告雖非絕對，但證據力強。",
+    tip: "建議交屋前找專業驗屋公司（約8,000–15,000元），可大幅降低風險。",
+    related: ["leak", "hoa_dispute"],
+  },
+  drunk_driving: {
+    title: "酒駕／毒駕刑責與後續",
+    category: "交通與移動",
+    summary: "酒駕超標直接吊扣駕照＋刑責，累犯更重，建議立即求助。",
+    know_your_rights: [
+      "酒測值0.15mg/L以上或吐氣0.3mg/L以上構成公共危險罪",
+      "可拒測但會直接吊銷駕照1年",
+      "初犯可爭取緩起訴或易科罰金，但仍吊扣",
+    ],
+    action_steps: [
+      "被攔檢時保持冷靜，拒絕簽名酒測單前三思",
+      "立即聯繫律師或家人（可撥110求助）",
+      "收到傳票後盡速找律師評估爭取緩起訴",
+      "吊扣期間可申請職業駕照或復駛考試",
+    ],
+    warning: "酒駕致死最重無期徒刑，切勿心存僥倖。拒測＋逃逸會加重刑責。",
+    tip: "酒後絕對叫計程車或代駕。法律扶助有酒駕專案，412-8518可諮詢。",
+    related: ["traffic_fine", "traffic_accident"],
+  },
+  online_fraud: {
+    title: "網路購物／投資詐騙",
+    category: "詐騙與網路犯罪",
+    summary: "常見假網拍、投資群組、假交友，匯款前務必查證。",
+    know_your_rights: [
+      "可向165反詐專線報案，警方會凍結帳戶",
+      "匯款24小時內報案，銀行有機會返還",
+      "平台（如蝦皮、露天）有先行賠付機制",
+    ],
+    action_steps: [
+      "發現可疑立即截圖所有對話與轉帳",
+      "撥165報案並提供證據",
+      "聯繫銀行申請爭議交易退款",
+      "向平台檢舉要求退款",
+    ],
+    warning: "投資高報酬群組99%是詐騙。勿點不明連結或下載App。",
+    tip: "用小額測試交易。報案後可撥165心理支持專線，減輕壓力。",
+    related: ["scam_investment", "scam_online_shopping", "scam_friendship"],
+  },
+  cosmetic_dispute: {
+    title: "醫美整形糾紛",
+    category: "外貌與形象",
+    summary: "醫美術後效果不如預期或留疤，可主張契約不符或醫療疏失。",
+    know_your_rights: [
+      "醫師須充分告知風險與副作用",
+      "可要求術前術後照片比對",
+      "重大瑕疵可主張減價或損害賠償",
+    ],
+    action_steps: [
+      "保留所有合約、術前諮詢紀錄、照片",
+      "向診所書面要求說明與補救",
+      "無法解決申請衛福部醫審會鑑定",
+      "必要時找法律扶助評估訴訟",
+    ],
+    warning: "醫美廣告常誇大效果，術前簽「自負風險」條款仍可爭取責任。勿輕信低價團購。",
+    tip: "選擇有衛福部認證診所。412-8518可免費諮詢醫美糾紛。",
+    related: ["medical_dispute"],
+  },
+  hoa_dispute: {
+    title: "公寓大廈管委會糾紛",
+    category: "居住與房屋",
+    summary: "管委會決議、公共基金、違建爭議常見，可依公寓大廈管理條例處理。",
+    know_your_rights: [
+      "住戶有權參與區分所有權人會議",
+      "管委會決議須2/3以上同意才有效",
+      "可向地方政府的「公寓大廈爭議調處委員會」申請調處",
+    ],
+    action_steps: [
+      "蒐集會議紀錄、規約、基金帳冊",
+      "書面向管委會提出異議",
+      "調處不成可向法院提起撤銷決議之訴",
+      "嚴重者報警或向地政機關檢舉",
+    ],
+    warning: "勿私自破壞公共設施，易觸刑法毀損罪。管委會貪污可告背信罪。",
+    tip: "保留所有繳費單與會議通知。鄉鎮調解委員會也可處理大樓糾紛。",
+    related: ["property_defect", "neighbor"],
+  },
+  sexual_harass: {
+    title: "性騷擾怎麼處理（職場／校園／公共場所）",
+    category: "情感與關係",
+    summary: "性騷擾包含言語、肢體、訊息等多種形式，受害者可申請保護令、申訴或提告，及早蒐證最重要。",
+    know_your_rights: [
+      "性騷擾防治法適用於職場、校園、公共場所及特定關係",
+      "可向雇主／學校申請調查及懲處，加害者最高可罰50萬元",
+      "嚴重者可提刑事告訴（刑法第224-1條強制猥褻等），或民事求償",
+      "可聲請保護令禁止加害者接近、聯絡、通訊",
+    ],
+    action_steps: [
+      "立即截圖／錄音／拍照所有證據（對話、照片、現場）",
+      "職場／校園先向公司HR或學校性平會申訴（有法定調查義務）",
+      "撥113專線（24小時）尋求協助與心理支持",
+      "欲提告或保護令，向警察局報案或直接向法院聲請",
+    ],
+    warning: "勿自行對質或報復，可能讓證據滅失或自己觸法。超過申訴時效（事件後2年）會喪失行政救濟權利。",
+    tip: "保留原始對話紀錄，不要刪除LINE或訊息。113專線可提供匿名諮詢與陪同報案，法律扶助基金會也有性騷專案。",
+    related: ["stalking_protection", "workplace_harass", "domestic_violence"],
+  },
+  deepfake: {
+    title: "深偽（AI換臉）／偷拍／影像侵害",
+    category: "情感與關係",
+    summary: "未經同意製作或散布深偽色情影片／偷拍私密影像，已構成犯罪，可快速報案要求下架與追責。",
+    know_your_rights: [
+      "刑法第315-1條妨害秘密罪（偷拍私密處最高5年）",
+      "刑法第235條散布猥褻物品罪（深偽色情影片適用）",
+      "可向法院聲請禁止散布令及民事損害賠償",
+      "平台有移除義務（數位中介服務法）",
+    ],
+    action_steps: [
+      "立即截圖／錄影保存原始連結、帳號、時間",
+      "向平台（IG、FB、YouTube、Telegram等）大量檢舉要求下架",
+      "撥165反詐或110報案，說明涉及深偽或偷拍",
+      "報案後可向法院聲請保護令或提民事求償",
+    ],
+    warning: "勿自行散布或轉傳證據影片，可能觸犯散布猥褻物品罪。深偽案件偵辦時間較長，心理壓力大，務必尋求支持。",
+    tip: "數位女力聯盟、113專線提供深偽受害者免費法律＋心理陪伴。保留原始檔案與metadata對偵辦幫助很大。",
+    related: ["sexual_harass", "stalking_protection", "defamation"],
+  },
+  traffic_accident: {
+    title: "車禍理賠／和解／過失比例",
+    category: "交通與移動",
+    summary: "車禍後先確保安全，蒐證完整後再談和解，過失比例影響賠償金額，建議保留專業意見。",
+    know_your_rights: [
+      "強制險理賠上限：傷害200萬、死亡200萬、財損20萬",
+      "任意險（第三人責任險）可補足更高額度",
+      "過失比例由警方初步判定，可申請道路交通事故鑑定委員會複評",
+      "和解前勿簽空白和解書或收據",
+    ],
+    action_steps: [
+      "事故現場先報警（110）並拍照全景、車損、傷勢、號碼牌",
+      "保留對方駕照／行照／保險資料，交換聯絡方式",
+      "就醫保留診斷證明、收據、復健紀錄",
+      "理賠談判卡關時申請交通事故鑑定（免費），或找律師評估",
+    ],
+    warning: "快速和解常吃虧，尤其是傷勢後續惡化。簽和解書後很難再追加賠償，務必等傷勢穩定。",
+    tip: "使用行車記錄器是最佳證據。法律扶助基金會有車禍專案，412-8518可免費評估和解內容是否合理。",
+    related: ["drunk_driving", "traffic_fine"],
+  },
+  traffic_fine: {
+    title: "交通違規罰單異議／分期／撤銷",
+    category: "交通與移動",
+    summary: "收到罰單不服可聲明異議，逾期未繳會加徵滯納金並影響信用，及早處理最划算。",
+    know_your_rights: [
+      "收到罰單後30日內可向處罰機關聲明異議（免費）",
+      "異議不成立可再行政訴訟（但費用較高）",
+      "罰鍰可分3期繳納（需申請），滯納金每日1%",
+      "舉發錯誤或證據不足可撤銷或減輕",
+    ],
+    action_steps: [
+      "拍照罰單完整內容，確認舉發事實與法條",
+      "準備證據（行車記錄器、照片、證人）向警察局或監理所聲明異議",
+      "異議期間罰鍰暫不繳納，成功可免繳或減額",
+      "無法撤銷時申請分期或線上繳納避免滯納",
+    ],
+    warning: "逾期未繳會移送行政執行，信用受損並可能扣押財產。勿忽略紅單／黃單通知。",
+    tip: "多數異議成功案例來自行車記錄器證據。公路總局網站有範例異議書可下載參考。",
+    related: ["drunk_driving", "traffic_accident"],
+  },
+  marriage_reg: {
+    title: "結婚登記程序與法律要件",
+    category: "家庭與育兒",
+    summary: "台灣結婚採登記主義，需雙方到戶政事務所辦理，注意財產制與跨國婚姻特殊規定。",
+    know_your_rights: [
+      "結婚年齡：男滿18歲、女滿16歲（民法第980條）",
+      "採法定財產制（婚後財產平均分配）為原則，可約定分別財產制",
+      "跨國婚姻需額外文件（單身證明、翻譯本等）",
+      "事實婚不具法律效力，財產／子女權利較弱",
+    ],
+    action_steps: [
+      "準備身分證、戶口名簿、2吋照片（跨國需額外文件）",
+      "雙方親自到任一戶政事務所辦理（可預約）",
+      "欲約定財產制，須先公證或登記約定書",
+      "登記完成後取得結婚證明書",
+    ],
+    warning: "登記前未約定財產制，婚後財產原則平均分配（包含薪資、投資）。事實同居無繼承權，建議正式登記。",
+    tip: "可先到戶政事務所諮詢或線上預約。想約定分別財產制，建議找公證人協助寫約定書。",
+    related: ["prenuptial", "alimony", "divorce"],
+  },
+  power_of_attorney: {
+    title: "授權書／委託書效力與注意事項",
+    category: "生活效率",
+    summary: "授權書讓他人代為處理事務（如醫療、財產、訴訟），但範圍與期限須明確，否則易生爭議。",
+    know_your_rights: [
+      "授權書可分為一般授權與特別授權（不動產、結婚、離婚等需特別授權）",
+      "醫療授權書（預立醫療決定）可指定重大醫療決定代理人",
+      "授權可隨時撤銷（書面通知受託人及相關單位）",
+      "公證授權書證據力較強，部分事項（如不動產移轉）需公證才有效",
+    ],
+    action_steps: [
+      "明確寫出授權範圍、期限、受託人姓名身分證字號",
+      "醫療／財產重大事項建議到公證人處公證（費用約1,000–2,000元）",
+      "交付前影印備份並告知相關單位（如醫院、銀行）",
+      "需求改變時立即書面撤銷授權並通知所有相關方",
+    ],
+    warning: "空白授權書或範圍過廣極危險，受託人可能濫用權限。醫療授權若未明確，醫院可能仍要求家屬共識。",
+    tip: "可使用內政部或醫院提供的標準範本。長照或出國前建議提前辦理醫療／財產授權，法律扶助基金會可免費諮詢範圍界定。",
+    related: ["medical_consent", "guardianship", "inheritance_waiver"],
+  },
+  medical_consent: {
+    title: "醫療同意書／手術同意注意事項",
+    category: "健康與身體",
+    summary: "醫療同意書是病人自主權的體現，醫師須充分告知風險，未盡告知義務可主張醫療糾紛。",
+    know_your_rights: [
+      "醫療法第64條：醫師應告知病情、治療方式、風險、替代方案及預後",
+      "同意書須病人本人或法定代理人簽署，緊急情況例外",
+      "可拒絕不必要檢查或治療（病人自主權）",
+      "同意書內容不實或未充分說明，仍可主張侵權責任",
+    ],
+    action_steps: [
+      "簽名前務必問清楚：風險機率、多高程度、其他選擇方案",
+      "不明白的地方要求醫師用白話解釋並記錄在病歷",
+      "重大手術建議帶家人一起聽說明，或要求書面說明書",
+      "若懷疑未盡告知義務，保留同意書影本並索取完整病歷",
+    ],
+    warning: "簽了同意書不等於醫師免責，若有疏失仍可求償。緊急手術時家屬常被迫簽署，事後仍可檢討告知是否充分。",
+    tip: "可要求醫師在病歷記錄口頭說明內容。醫療決定困難時可提前辦理「預立醫療決定」或醫療委託授權。",
+    related: ["medical_dispute", "power_of_attorney"],
+  },
+  leak: {
+    title: "房屋漏水責任歸屬與求償",
+    category: "居住與房屋",
+    summary: "漏水原因決定責任歸屬（屋頂、外牆、管線），租屋與買屋處理方式不同，及早拍照存證最重要。",
+    know_your_rights: [
+      "租屋：民法第430條，出租人應修繕保持房屋適合居住狀態",
+      "買屋：民法第354條，出賣人對隱藏瑕疵負擔保責任（漏水常屬隱藏瑕疵）",
+      "公寓大廈：公共管線／屋頂漏水由管理委員會負責修繕",
+      "發現漏水後6個月內主張權利較有利",
+    ],
+    action_steps: [
+      "立即拍照／錄影漏水位置、範圍、天花板損壞程度、天氣狀況",
+      "書面通知對方（房東／管委會／賣方），限期修繕（存證信函最佳）",
+      "租屋可扣租金修繕或終止租約（重大漏水影響居住）",
+      "買屋無法協商時申請不動產糾紛調解或提起減價／損害賠償",
+    ],
+    warning: "勿自行破壞牆面找漏水源，易被指控毀損。長期漏水未處理可能導致黴菌、健康問題，證據不足難求償。",
+    tip: "找專業抓漏師傅鑑定原因（約3,000–8,000元），報告可當證據。公寓大廈漏水可先向管委會申請調處，免費且快速。",
+    related: ["property_defect", "hoa_dispute"],
+  },
+  alimony: {
+    title: "贍養費／扶養費請求與計算",
+    category: "家庭與育兒",
+    summary: "離婚後一方生活困難可請求贍養費，子女扶養費則為父母法定義務。2026年修法趨勢放寬請求條件，重點在經濟能力與生活需求。",
+    know_your_rights: [
+      "贍養費：判決離婚後一方陷生活困難可請求（民法第1057條），2026修法草案擬不限無過失方，並新增就業能力減損可請求",
+      "子女扶養費：父母對未成年子女負扶養義務（至18歲或20歲過渡期），無約定也可事後請求",
+      "計算參考：行政院主計總處每人月消費支出、雙方經濟能力、子女實際需求",
+      "可約定一次給付、定期給付或至再婚／就業終止",
+    ],
+    action_steps: [
+      "離婚協議書中先約定贍養／扶養費金額、方式、期限",
+      "無約定或不履行，向法院提起給付贍養費／扶養費之訴",
+      "蒐集證據：薪資單、生活開支、對方財力證明、子女需求清單",
+      "判決確定後不履行，可聲請強制執行（扣薪、扣存款等）",
+    ],
+    warning: "贍養費非強制，實務門檻仍高（需證明生活困難）；子女扶養費逾期不繳可強制執行，但請求權時效15年，從可請求時起算。勿拖延，否則證據難保全。",
+    tip: "協議離婚時務必寫清楚金額與終止條件。經濟弱勢一方可撥412-8518法律扶助基金會免費評估，或向法院調解爭取合理金額。",
+    related: ["divorce", "marriage_reg"],
+  },
+  cohabitation: {
+    title: "未婚同居財產分配與分手處理",
+    category: "情感與關係",
+    summary: "未婚同居無法適用夫妻財產制，分手時原則各自財產各自拿，但可透過協議或證明共同出資爭取分配。事實上夫妻認定嚴格，建議簽同居協議自保。",
+    know_your_rights: [
+      "無婚姻登記 → 無法直接請求剩餘財產分配（民法1030-1條限夫妻）",
+      "法院實務：長期同居＋對外以夫妻自居＋經濟互助，可類推部分夫妻權利（如家庭費用分擔、酌給遺產），但剩餘財產分配爭議大",
+      "共同出資購屋／創業，可主張借名登記或不當得利返還",
+      "分手後2年內主張權利較有利（類推時效）",
+    ],
+    action_steps: [
+      "同居前簽書面協議，約定財產歸屬、出資比例、分手分配方式",
+      "共同購置財產時註記持分或登記借名約定",
+      "分手時蒐集轉帳、出資證明、共同生活紀錄",
+      "無法協商，向法院提起返還不當得利或確認所有權之訴",
+    ],
+    warning: "純同居不等於事實夫妻，剩餘財產分配多數判決不准。口頭約定難舉證，分手後常因證據不足一毛拿不到。勿把所有財產登記對方名下。",
+    tip: "同居協議可約定家務分工、費用分攤、分手退場機制。建議公證增加證據力。分手前拍照存證共同財產，避免事後爭執。",
+    related: ["prenuptial", "marriage_reg", "debt_collection"],
+  },
+  prenuptial: {
+    title: "婚前協議／夫妻財產約定",
+    category: "情感與關係",
+    summary: "婚前可約定夫妻財產制（分別／共同），書面約定即對夫妻生效，公證＋登記可對抗第三人。重點在明確範圍，避免離婚爭產。",
+    know_your_rights: [
+      "民法第1004條：可約定分別財產制或共同財產制，無約定預設法定財產制",
+      "書面約定對夫妻生效，登記後對抗第三人（民法第1008條）",
+      "公證後金錢給付部分可直接聲請強制執行",
+      "約定不得違反公序良俗（如預設離婚條件、性義務）",
+    ],
+    action_steps: [
+      "婚前討論財產清冊、約定內容（住所、費用分擔、子女姓氏等）",
+      "寫成書面契約，雙方簽名（建議公證人見證）",
+      "約定夫妻財產制後，向法院聲請登記（附財產目錄、身分證明）",
+      "婚後情況變更可再約定變更或廢止",
+    ],
+    warning: "約定內容若不公平或簽署時有脅迫，法院可能不予採納。未登記僅對夫妻有效，第三人（如債權人）仍可主張法定財產制。",
+    tip: "使用司法院範本或找律師／公證人協助撰寫。公證費用約1,000–數萬元，值得投資以確保執行力。婚前協議也能促進雙方坦誠溝通。",
+    related: ["marriage_reg", "divorce", "cohabitation"],
+  },
+  portrait_rights: {
+    title: "肖像權侵害／未經同意使用照片",
+    category: "外貌與形象",
+    summary: "未經同意拍攝、公開或商業使用他人肖像，構成人格權侵害。可要求除去、下架、賠償。公眾人物門檻較高，一般人情節重大即可求償。",
+    know_your_rights: [
+      "肖像權屬人格權（民法第18條、第195條），未經同意製作／公開／營利用即侵害",
+      "可請求除去侵害、防止侵害、財產損害賠償及精神慰撫金",
+      "情節重大（如商業利用、造成困擾、家庭失和）可請求非財產損害賠償",
+      "平台有下架義務（數位中介服務法），拒不下架可一併提告",
+    ],
+    action_steps: [
+      "立即截圖／錄影保存原始照片、使用頁面、網址、時間",
+      "向平台（FB、IG、網站）檢舉要求刪除",
+      "書面（存證信函）要求對方停止使用並道歉／賠償",
+      "不履行時向地方法院提起侵害人格權除去及損害賠償之訴",
+    ],
+    warning: "偷拍私密部位或合成深偽更重罪（刑法第315-1條妨害秘密）。勿自行散布報復照片，可能反被控散布猥褻物品。舉證時效2年（知悉侵害後）。",
+    tip: "保留原始檔案與metadata。情節重大（如被用於詐騙、負面教材）賠償較高。撥165或113專線可獲輔導，法律扶助基金會有肖像權專案。",
+    related: ["deepfake", "defamation", "sexual_harass"],
+  },
+  false_ad: {
+    title: "廣告不實／誇大宣傳怎麼求償",
+    category: "消費與產品",
+    summary: "廣告內容與實際商品不符（如療效誇大、成分虛假），可向業者求償退費＋懲罰性賠償，業者故意者最高可判3倍損害賠償。",
+    know_your_rights: [
+      "公平交易法第21條：業者不得為虛偽不實或引人錯誤表示，違者罰鍰5萬–2500萬",
+      "消費者保護法第23條：因信賴不實廣告受損，可向業者及知情媒體請求損害賠償，故意者最高5倍懲罰性賠償",
+      "可向公平交易委員會檢舉、1950消保專線申訴或鄉鎮調解",
+      "時效：知悉損害後2年（侵權行為）",
+    ],
+    action_steps: [
+      "蒐集證據：廣告截圖／影片、購買發票、商品實況照片、對話紀錄",
+      "先書面通知業者（存證信函）要求退費／補償並停止廣告",
+      "業者不配合，撥1950或向縣市消保官申訴（免費調解）",
+      "調解不成，向法院提起損害賠償之訴（小額訴訟快速）",
+    ],
+    warning: "勿輕信『僅供參考』或『效果因人而異』免責條款，法院常認定無效。跨境電商或境外業者追償難度高，建議優先本地商家。",
+    tip: "申訴時附完整證據可加速處理。公平交易法有懲罰性賠償機制，金額不大時鄉鎮調解最有效率，成功率高。",
+    related: ["defective_goods", "online_fraud", "medical_dispute"],
+  },
+  defective_goods: {
+    title: "實體商品瑕疵退換貨權利",
+    category: "消費與產品",
+    summary: "商品有瑕疵（如功能故障、缺陷、不符約定），可主張民法瑕疵擔保責任要求退貨、換貨或減價，業者不得以『售出不退』免責。",
+    know_your_rights: [
+      "民法第354條：出賣人應擔保商品無滅失／減少價值或效用之瑕疵",
+      "民法第359條：瑕疵重大可解除契約退款，或減價；輕微可要求修補或換新",
+      "消費者保護法第7條：商品須符合合理期待安全性，業者負舉證責任",
+      "實體店面無7天鑑賞期，但瑕疵不限時間（發現後從速通知）",
+    ],
+    action_steps: [
+      "購買後立即檢查商品，發現瑕疵拍照／錄影存證",
+      "盡速通知業者（書面最佳），要求退換或修補",
+      "業者拒絕，向1950消保專線或縣市消保官申訴調解",
+      "調解不成，向法院提起小額訴訟（金額10萬以下快速）",
+    ],
+    warning: "購買前已明示或自己重大過失未發現的顯著瑕疵，無法主張。實體店面常標示『售出概不退換』，但此條款對瑕疵無效。",
+    tip: "保留發票、包裝、說明書。瑕疵發生在合理使用內，業者負舉證責任（證明無瑕疵）。鄉鎮調解免費且效力等同判決。",
+    related: ["false_ad", "online_fraud", "property_defect"],
+  },
+  ai_copyright: {
+    title: "AI生成內容著作權歸屬",
+    category: "AI與數位",
+    summary: "純AI生成內容不受著作權保護；需有人類實質創意投入（如修改、選擇、編排）才可主張著作權，歸屬於投入創意之人。參考文化部2025年《文化藝術應用生成式AI指引》。",
+    know_your_rights: [
+      "著作權法保護人類精神創作，AI獨立生成無著作權（智財局2023函釋及文化部指引）",
+      "人類投入實質創意（prompt精細設計＋後製修改）→ 生成結果可獲保護，著作人為自然人",
+      "純指令生成或AI主導→ 無著作權，任何人可自由利用",
+      "使用他人著作訓練AI或生成類似內容，可能侵害原著作權",
+    ],
+    action_steps: [
+      "創作時記錄prompt、迭代修改過程、個人調整內容（作為證據）",
+      "生成後大幅修改、編排、添加獨特元素，強化人類創意",
+      "欲登記著作權，向智財局申請時附創作過程證明",
+      "疑似被抄襲或侵權，蒐證後向智財局調解或法院提告",
+    ],
+    warning: "僅簡單prompt（如『梵谷風格貓』）通常不構成實質創意，生成物無著作權。商業利用類似他人風格作品，可能違反公平交易法或消保法。",
+    tip: "使用AI時視為輔助工具，多做後製與個人化調整。文化部指引建議標示『AI輔助生成』避免爭議。商業用途建議諮詢律師評估侵權風險。",
+    related: ["digital_inheritance", "copyright"],
+  },
+  early_termination: {
+    title: "租約提前解約與違約金",
+    category: "租屋與居住",
+    summary: "租約未到期想搬走，原則上需賠違約金，但有幾種情況可免或減輕。",
+    know_your_rights: [
+      "民法第450條：租約期間內提前終止，原則需賠 1～2 個月租金",
+      "重大事由（如漏水嚴重、房東違約）可終止而不賠",
+      "雙方協商可免違約金或減半",
+    ],
+    action_steps: [
+      "書面通知房東解約意願（建議存證信函）",
+      "拍照記錄房屋現況，避免日後押金爭議",
+      "協商不成可申請鄉鎮調解或小額訴訟",
+    ],
+    warning: "直接搬走＋不繳租金，房東可追討欠租＋違約金＋水電費。",
+    tip: "提前 30～60 天溝通，找到下一個租客可大幅降低違約金。",
+    related: ["rent_deposit", "leak"],
+  },
+  rent_increase: {
+    title: "房東亂漲租或不修繕怎麼辦",
+    category: "租屋與居住",
+    summary: "租約期間房東不得任意調漲租金，修繕義務原則由房東負擔，拒絕可扣租或終止契約。",
+    know_your_rights: [
+      "民法第424條：租賃物有修繕必要時，出租人有修繕義務",
+      "租約期間房東不得片面調漲租金，除非合約有特別約定",
+      "房東不修繕，租客可自行修繕後向房東請求償還費用",
+      "影響居住安全之重大瑕疵，租客可終止契約",
+    ],
+    action_steps: [
+      "保留租約原本，確認租金與修繕條款",
+      "修繕需求以書面通知房東（存證信函），限期修復",
+      "逾期不修，自行僱工修繕並保留發票收據",
+      "協商不成向鄉鎮調解委員會申請調解",
+    ],
+    warning: "切勿直接拒繳房租，可能被反告欠租。自行修繕前務必書面通知並留證據。",
+    tip: "搬入前拍照記錄房屋原始狀況。租賃專法適用住宅租約，保護力更強。",
+    related: ["rent_deposit", "early_termination", "leak"],
+  },
+  neighbor_nuisance: {
+    title: "鄰居噪音、高空拋物怎麼處理",
+    category: "租屋與居住",
+    summary: "噪音或高空拋物屬民事侵權，可要求停止＋賠償，嚴重者可報警處理。",
+    know_your_rights: [
+      "民法第793條：不得妨害鄰地之使用",
+      "社會秩序維護法第72條：噪音妨害安寧處6000元以下罰鍰",
+      "高空拋物致人受傷，拋擲者負刑事＋民事責任",
+      "管委會有維護公共秩序義務，可依規約處罰",
+    ],
+    action_steps: [
+      "先友善溝通，紀錄噪音時間與分貝（手機App可測）",
+      "溝通無效向管委會或里長反映",
+      "持續騷擾報警處理（110），警方可開罰",
+      "求償可向法院提起民事訴訟",
+    ],
+    warning: "切勿以暴力或報復手段回應，易觸犯刑法。錄音錄影注意隱私權界線。",
+    tip: "噪音檢舉可撥環保局專線，由稽查人員到場測量分貝。社區規約通常有安寧時段規定。",
+    related: ["hoa_dispute", "property_defect"],
+  },
+  live_shopping: {
+    title: "直播購物／團購糾紛",
+    category: "消費與購物",
+    summary: "直播主或團購主誇大商品、貨不對辦，消費者仍享消保法保護，可退貨求償。",
+    know_your_rights: [
+      "直播購物屬「通訊交易」，享7天猶豫期退貨權（消保法第19條）",
+      "團購主若以營利為目的，視為企業經營者，適用消保法",
+      "商品與廣告不符可主張退費＋損害賠償",
+      "可向平台（FB、IG、蝦皮）檢舉要求退款",
+    ],
+    action_steps: [
+      "保留直播截圖、下單紀錄、付款證明、對話紀錄",
+      "7天內書面通知退貨（不需理由）",
+      "團購主不處理，向1950消保專線或縣市消保官申訴",
+      "金額較大可提小額訴訟",
+    ],
+    warning: "私人代購或二手轉售不適用7天猶豫期。跨境直播（如抖音）退款難度高。",
+    tip: "直播購物前截圖產品說明與價格。付款優先用信用卡，爭議時可向銀行申請止付。",
+    related: ["cooling_off", "false_ad", "defective_goods"],
+  },
+  phishing_scam: {
+    title: "釣魚簡訊／假客服詐騙",
+    category: "詐騙與網路安全",
+    summary: "收到要求點連結或提供驗證碼的訊息，多為詐騙，立即掛斷並報案。",
+    know_your_rights: [
+      "銀行／政府機關絕不會用簡訊要求提供密碼或驗證碼",
+      "被騙匯款24小時內報案，銀行有機會凍結並返還",
+      "可向165反詐專線報案，警方即時處理",
+      "個資被冒用可向戶政事務所申請身分證掛失",
+    ],
+    action_steps: [
+      "收到可疑簡訊／電話，不點連結、不回撥、不提供個資",
+      "撥165查證，或自行撥打銀行官方客服確認",
+      "已點連結或輸入資料，立即改密碼並通知銀行凍結",
+      "持對話截圖、通話紀錄到警局報案",
+    ],
+    warning: "假客服會用來電顯示偽裝官方號碼，勿輕信。已匯款越快報案，追回機率越高。",
+    tip: "手機安裝Whoscall等防詐App。任何要求匯款或提供驗證碼的訊息，一律先掛斷自行查證。",
+    related: ["scam_investment", "online_fraud", "data_breach"],
+  },
+  account_hacked: {
+    title: "社群／銀行帳號被盜怎麼辦",
+    category: "詐騙與網路安全",
+    summary: "帳號被盜用第一時間改密碼、通知平台凍結，並報警備案，避免被利用為詐騙工具。",
+    know_your_rights: [
+      "帳號被盜用於詐騙，本人報案後可證明非共犯",
+      "銀行帳號遭冒用匯款，可主張非本人操作爭議款項",
+      "社群平台有帳號復原機制（FB、IG、Google皆有）",
+      "個資外洩可向個資保護機關申訴",
+    ],
+    action_steps: [
+      "立即更改密碼，開啟兩步驟驗證（2FA）",
+      "通知平台（FB、Google、LINE）鎖定或凍結帳號",
+      "銀行帳號被盜，撥客服凍結並申請爭議交易",
+      "到警局報案取得報案三聯單（日後爭議用）",
+    ],
+    warning: "帳號被用於詐騙他人，若未報案可能被認定為「人頭帳戶」共犯。越快報案越安全。",
+    tip: "所有重要帳號務必開啟2FA。不要多個平台使用同一密碼。定期檢查登入紀錄。",
+    related: ["phishing_scam", "data_breach", "online_fraud"],
+  },
+  probation_dismissal: {
+    title: "試用期被開除合法嗎",
+    category: "工作與職場",
+    summary: "試用期仍受勞基法保護，雇主需有正當理由才能解僱，且須給預告期或預告工資。",
+    know_your_rights: [
+      "勞基法無「試用期」條文，但實務承認合理試用（通常3個月）",
+      "試用期解僱仍需正當理由（能力不足、違規等），不能隨意開除",
+      "未滿3個月免預告，但仍需發給工資至最後工作日",
+      "試用期不適任應有考核紀錄，不能空口說白話",
+    ],
+    action_steps: [
+      "保留聘僱通知、勞動契約、考核紀錄",
+      "被口頭通知解僱，要求書面說明理由",
+      "認為不合法，向勞工局申請調解",
+      "調解不成可提起確認僱傭關係存在之訴",
+    ],
+    warning: "試用期不表示雇主可任意解僱。但期間較短（未滿3個月），資遣費較少。",
+    tip: "入職時確認試用期長度與考核標準。保留所有工作成果紀錄，作為自保證據。",
+    related: ["dismissal", "unpaid_wage", "workplace_harass"],
+  },
+  resignation_proof: {
+    title: "離職證明書與勞保爭議",
+    category: "工作與職場",
+    summary: "雇主有義務開立離職證明，拒絕開立可罰鍰。勞保退保、轉出也應由雇主辦理。",
+    know_your_rights: [
+      "勞基法第19條：勞工離職時，雇主應發給服務證明書",
+      "拒絕開立可處2萬～30萬元罰鍰",
+      "離職證明不得記載不利於勞工的事項（如解僱原因）",
+      "勞保退保應於離職當日辦理，延遲退保雇主負責",
+    ],
+    action_steps: [
+      "離職時書面要求開立離職證明（存證信函）",
+      "雇主拒絕，向勞工局申訴（檢附離職事實證明）",
+      "確認勞保是否已退保，至勞保局網站查詢",
+      "勞保爭議向勞動部勞工保險局申訴",
+    ],
+    warning: "離職證明內容如有不實，可要求更正。雇主故意不退勞保，勞工可能被追繳雙重保費。",
+    tip: "離職前截圖勞保異動明細。服務證明書只需記載工作期間與職務，不含離職原因。",
+    related: ["dismissal", "unpaid_wage", "probation_dismissal"],
+  },
+  credit_card_debt: {
+    title: "信用卡債務協商與整合",
+    category: "借錢與欠債",
+    summary: "信用卡債還不出可向銀行申請前置協商，成功後利率與期數都可降低，避免被強制執行。",
+    know_your_rights: [
+      "消費者債務清理條例：可向最大債權銀行申請前置協商",
+      "協商成功後利率通常降至0～5%，還款期最長180期",
+      "協商期間債權人不得催收或強制執行",
+      "協商不成可聲請法院更生或清算",
+    ],
+    action_steps: [
+      "列出所有債務明細（銀行、金額、利率）",
+      "向最大債權銀行提出前置協商申請",
+      "準備財力證明（薪資、支出、扶養人數）",
+      "協商方案不滿意可向法院聲請更生",
+    ],
+    warning: "協商期間不得再借新債或使用信用卡。違反協商條件會恢復原債務。代辦公司多為詐騙，直接找銀行免費。",
+    tip: "法律扶助基金會有債務諮詢專案（412-8518），完全免費。銀行公會也有債務協商專線。",
+    related: ["credit_card", "loan", "debt_rehabilitation"],
+  },
+  pet_dispute: {
+    title: "寵物受傷／遺棄／鄰居寵物糾紛",
+    category: "醫療、健康與其他",
+    summary: "寵物法律上屬「動產」，但動物保護法有特別規範，虐待或遺棄可處刑罰。",
+    know_your_rights: [
+      "動物保護法第5條：飼主有妥善照顧義務，不得虐待或遺棄",
+      "他人傷害寵物可主張民事損害賠償（醫療費＋精神慰撫金）",
+      "故意虐待動物，處2年以下有期徒刑（動保法第25條）",
+      "鄰居寵物傷人，飼主負損害賠償責任（民法第190條）",
+    ],
+    action_steps: [
+      "寵物受傷立即就醫並保留診斷證明與收據",
+      "蒐集事發經過證據（監視器、照片、證人）",
+      "先協商賠償，不成向鄉鎮調解委員會申請調解",
+      "虐待或遺棄動物撥1999或向動保處檢舉",
+    ],
+    warning: "放養寵物咬傷他人，飼主需負全額賠償。流浪動物傷人無法找到飼主時，可向地方政府求償。",
+    tip: "寵物建議投保寵物險。遛狗務必牽繩，避免法律糾紛。動保處檢舉專線各縣市不同，可撥1999查詢。",
+    related: ["medical_dispute", "neighbor_nuisance"],
+  },
 };
 
 // ─── 版本日期管理（格式 "YYYY-MM"，每次更新內容時同步修改對應 key）────────────────
@@ -1425,6 +2299,60 @@ const CONTENT_VERSIONS = {
   debt_liquidation:    "2026-03",
   // 情感與關係
   stalking_protection: "2026-03",
+  // 金錢與投資（補充）
+  credit_card:       "2026-03",
+  // 健康與身體
+  medical_dispute:   "2026-03",
+  // 人際與社交（補充）
+  debt_collection:   "2026-03",
+  // 居住與房屋（補充）
+  property_defect:   "2026-03",
+  hoa_dispute:       "2026-03",
+  // 交通與移動（補充）
+  drunk_driving:     "2026-03",
+  // 詐騙與網路犯罪（補充）
+  online_fraud:      "2026-03",
+  // 外貌與形象
+  cosmetic_dispute:  "2026-03",
+  // 情感與關係（補充）
+  sexual_harass:     "2026-03",
+  deepfake:          "2026-03",
+  // 交通與移動（補充2）
+  traffic_fine:      "2026-03",
+  // 家庭與育兒（補充）
+  marriage_reg:      "2026-03",
+  // 生活效率（補充）
+  power_of_attorney: "2026-03",
+  // 健康與身體（補充）
+  medical_consent:   "2026-03",
+  // 家庭與育兒（補充2）
+  alimony:           "2026-03",
+  // 情感與關係（補充2）
+  cohabitation:      "2026-03",
+  prenuptial:        "2026-03",
+  // 外貌與形象（補充）
+  portrait_rights:   "2026-03",
+  // 消費與產品（補充）
+  false_ad:          "2026-03",
+  defective_goods:   "2026-03",
+  // AI與數位（補充）
+  ai_copyright:      "2026-03",
+  // 租屋與居住（新增）
+  early_termination:  "2026-03",
+  rent_increase:      "2026-03",
+  neighbor_nuisance:  "2026-03",
+  // 工作與職場（新增）
+  probation_dismissal:"2026-03",
+  resignation_proof:  "2026-03",
+  // 消費與購物（新增）
+  live_shopping:      "2026-03",
+  // 詐騙與網路安全（新增）
+  phishing_scam:      "2026-03",
+  account_hacked:     "2026-03",
+  // 借錢與欠債（新增）
+  credit_card_debt:   "2026-03",
+  // 醫療、健康與其他（新增）
+  pet_dispute:        "2026-03",
 };
 
 // ─── FAQ 資料 ───────────────────────────────────────────────
@@ -1830,14 +2758,14 @@ function onGlobalSearch(query) {
   query = (query || '').trim();
   const clearBtn = document.getElementById('gs-clear-btn');
   clearBtn.style.display = query ? 'block' : 'none';
-  if (!query) { showPage('page-home'); return; }
+  if (!query) { showPage('page-law-home'); return; }
   runGlobalSearch(query);
 }
 
 function clearGlobalSearch() {
   document.getElementById('global-search-input').value = '';
   document.getElementById('gs-clear-btn').style.display = 'none';
-  showPage('page-home');
+  showPage('page-law-home');
 }
 
 function runGlobalSearch(query) {
@@ -1896,8 +2824,313 @@ function runGlobalSearch(query) {
   showPage('page-search');
 }
 
+// ─── Fraud Types Data ────────────────────────────────────────
+const FRAUD_TYPES = [
+  {
+    icon: "📈",
+    name: "假投資詐騙",
+    risk: "high",
+    riskLabel: "高危",
+    desc: "以「穩賺不賠」、「每日高報酬」、「VIP投資群組」等話術引誘匯款。多以LINE/Telegram群組操作，初期小額獲利，之後無法出金。",
+    signals: ["介紹高報酬投資", "要求加VIP群組", "強調不能跟家人說", "只能加密貨幣轉帳", "初期有小額獲利"],
+    howToCheck: "真實投資平台會清楚標示公司資訊、金管會執照，且不會主動私訊推銷。",
+    action: "立即停止匯款，撥打 165 通報，保留所有對話截圖。"
+  },
+  {
+    icon: "📞",
+    name: "解除分期付款詐騙",
+    risk: "high",
+    riskLabel: "高危",
+    desc: "詐騙者冒充網購客服，謊稱「您的訂單設定成分期付款，需要到ATM操作解除」，實際上是轉帳匯款。",
+    signals: ["對方自稱購物平台客服", "說你誤設分期付款", "要求去ATM操作", "要求按指示輸入密碼"],
+    howToCheck: "合法網購平台絕不會要求你去ATM操作或轉帳。接到電話先掛掉，官方客服電話自行查詢回撥。",
+    action: "掛掉電話，回撥官方客服確認，或撥打 165 通報。"
+  },
+  {
+    icon: "❤️",
+    name: "假愛情（交友）詐騙",
+    risk: "high",
+    riskLabel: "高危",
+    desc: "在交友軟體或社群媒體認識，建立感情後引導投資或直接借錢。對方大多使用盜用的帥哥美女照片。",
+    signals: ["網路交友快速升溫", "對方說在國外工作", "介紹你投資賺錢", "說有緊急狀況要借錢", "視訊畫面模糊或理由多"],
+    howToCheck: "用 Google 圖片搜尋對方頭貼，通常能找到照片來源。真心交友不會急著談投資或借錢。",
+    action: "停止匯款，別再聯繫，撥打 165 通報，告知親友以免重蹈覆轍。"
+  },
+  {
+    icon: "📩",
+    name: "釣魚簡訊／假連結",
+    risk: "med",
+    riskLabel: "中危",
+    desc: "偽裝成包裹通知、中獎通知、政府補助等，附上假連結，誘導點擊後填入個資或信用卡號碼。",
+    signals: ["簡訊含有陌生連結", "聲稱你有未領包裹", "要求重新填寫資料", "要求輸入信用卡資料", "連結網址奇怪或拼音錯誤"],
+    howToCheck: "官方通知不會要求你點連結重填資料。如收到包裹通知，直接到快遞官網查詢單號。",
+    action: "不要點連結、不要填資料，直接刪除。若已點擊，立即更改密碼並聯繫銀行。"
+  },
+  {
+    icon: "👮",
+    name: "假冒公務員詐騙",
+    risk: "high",
+    riskLabel: "高危",
+    desc: "冒充警察、檢察官、衛福部等，謊稱你涉及洗錢或詐騙案，要求「監管帳戶」或匯款到「安全帳戶」配合調查。",
+    signals: ["自稱警察或檢察官打電話", "說你涉及刑案需配合調查", "要求轉帳到「安全帳戶」", "說不能告訴任何人", "要求遠端操控手機"],
+    howToCheck: "真正的司法機關絕不會電話要求轉帳，也不存在「安全帳戶」。收到此類電話直接掛掉。",
+    action: "立即掛掉，撥打 165 或 110 通報。告知家人，不要獨自決定。"
+  },
+  {
+    icon: "💼",
+    name: "假求職詐騙",
+    risk: "med",
+    riskLabel: "中危",
+    desc: "刊登高薪輕鬆工作廣告，面試後要求繳保證金、購買設備，或實際上是要你從事詐騙工作（車手、帳戶代管）。",
+    signals: ["工作輕鬆薪水超高", "要求先繳保證金或購買設備", "要求提供帳戶幫忙「走帳」", "工作地點在境外", "無法查到公司資訊"],
+    howToCheck: "合法工作不需要你先繳費，提供帳戶給陌生人使用可能觸法（幫助詐欺）。",
+    action: "拒絕工作，保留對話記錄，撥打 165 通報。"
+  },
+  {
+    icon: "🎁",
+    name: "假中獎／免費贈品詐騙",
+    risk: "low",
+    riskLabel: "低危",
+    desc: "通知「你中獎了」或「免費領取好禮」，要求提供個資、繳納手續費或稅金才能領獎。",
+    signals: ["未參加抽獎卻通知中獎", "領獎需先繳稅或手續費", "要求提供完整個資", "限時領取製造急迫感"],
+    howToCheck: "不記得參加的抽獎一律不理，任何需要先繳費才能領獎的通通是詐騙。",
+    action: "忽略，不要回覆，不要提供個資。"
+  },
+  {
+    icon: "🤝",
+    name: "假冒親友緊急求助",
+    risk: "med",
+    riskLabel: "中危",
+    desc: "假冒子女、父母或朋友，以「出事了急需用錢」「在外地手機壞了」等理由緊急要求匯款。",
+    signals: ["突然換號碼聯絡", "說發生緊急事故需要錢", "要求不要問太多先匯款", "聲音或語氣有異"],
+    howToCheck: "先打電話到對方原本的號碼確認，或直接問只有雙方知道的事。",
+    action: "先回撥原本電話確認身份，不要急著匯款。"
+  },
+];
+
+const FRAUD_CHECK_ITEMS = [
+  { id: "f1",  text: "對方主動聯繫，聲稱有<strong>高報酬投資機會</strong>",                     score: 3 },
+  { id: "f2",  text: "要求轉帳到<strong>私人帳戶</strong>或加密貨幣錢包",                      score: 3 },
+  { id: "f3",  text: "強調要<strong>保密，不能告訴家人朋友</strong>",                          score: 3 },
+  { id: "f4",  text: "要求<strong>遠端操控</strong>你的手機或電腦",                             score: 3 },
+  { id: "f5",  text: "自稱<strong>警察、檢察官、銀行人員</strong>",                             score: 3 },
+  { id: "f6",  text: "要求你去<strong>ATM操作</strong>或轉帳",                                  score: 3 },
+  { id: "f7",  text: "對方說有<strong>緊急狀況</strong>，催促你快速決定",                       score: 2 },
+  { id: "f8",  text: "要求提供<strong>身份證、信用卡、銀行密碼</strong>等個人資料",              score: 2 },
+  { id: "f9",  text: "網路認識的人，快速建立感情後<strong>介紹投資或借錢</strong>",               score: 2 },
+  { id: "f10", text: "訊息中含有<strong>陌生連結</strong>，點進去要求填資料",                    score: 2 },
+  { id: "f11", text: "對方說這個<strong>機會只限今天</strong>，製造急迫感",                      score: 1 },
+  { id: "f12", text: "工作要求你<strong>提供帳戶幫忙走帳</strong>，說有薪水",                    score: 2 },
+];
+
+// ─── Fraud Functions ─────────────────────────────────────────
+function buildFraudTypesList() {
+  const container = document.getElementById('fraud-types-list');
+  if (!container) return;
+  container.innerHTML = FRAUD_TYPES.map(t => `
+    <div class="fraud-type-card">
+      <div class="ft-head">
+        <div class="ft-icon">${t.icon}</div>
+        <div class="ft-name">${t.name}</div>
+        <div class="ft-badge ft-badge-${t.risk === 'high' ? 'high' : t.risk === 'med' ? 'med' : 'low'}">${t.riskLabel}</div>
+      </div>
+      <div class="ft-desc">${t.desc}</div>
+      <div class="ft-signals">${t.signals.map(s => `<span class="ft-signal">⚠️ ${s}</span>`).join('')}</div>
+      <div class="card card-teal mt8" style="padding:10px 14px">
+        <div style="font-size:12px;color:var(--teal);line-height:1.65">
+          🔍 <strong>如何判斷：</strong>${t.howToCheck}
+        </div>
+      </div>
+      <div class="warning-box mt8" style="padding:10px 14px">
+        🚨 <strong>遭遇此情況：</strong>${t.action}
+      </div>
+    </div>`).join('');
+}
+
+function buildFraudChecklist() {
+  const container = document.getElementById('fraud-checklist');
+  if (!container) return;
+  container.innerHTML = FRAUD_CHECK_ITEMS.map(item => `
+    <div class="check-item" id="ci-${item.id}" onclick="toggleCheck('${item.id}')">
+      <div class="ci-box" id="box-${item.id}"></div>
+      <div class="ci-text">${item.text}</div>
+    </div>`).join('');
+}
+
+function toggleCheck(id) {
+  const el = document.getElementById('ci-' + id);
+  const box = document.getElementById('box-' + id);
+  if (el.classList.contains('checked')) {
+    el.classList.remove('checked');
+    box.textContent = '';
+  } else {
+    el.classList.add('checked');
+    box.textContent = '✓';
+  }
+}
+
+function analyzeFraudCheck() {
+  let score = 0;
+  FRAUD_CHECK_ITEMS.forEach(item => {
+    if (document.getElementById('ci-' + item.id).classList.contains('checked')) {
+      score += item.score;
+    }
+  });
+
+  let riskClass, riskIcon, riskTitle, riskDesc, riskAction;
+  if (score >= 6) {
+    riskClass = 'risk-high';
+    riskIcon = '🚨';
+    riskTitle = '高風險！高度懷疑是詐騙';
+    riskDesc = '你勾選的特徵與詐騙手法高度相符。請立即停止一切轉帳或資料提供，並聯繫家人或撥打 165 求助。';
+    riskAction = '立即撥打 <strong>165</strong> 通報，或帶截圖到警察局報案。';
+  } else if (score >= 3) {
+    riskClass = 'risk-med';
+    riskIcon = '⚠️';
+    riskTitle = '中度風險！請提高警覺';
+    riskDesc = '你的情況有部分詐騙特徵，建議先暫停行動，向身邊可信任的人諮詢確認。';
+    riskAction = '先不要匯款或提供資料，撥打 <strong>165</strong> 詢問意見。';
+  } else if (score > 0) {
+    riskClass = 'risk-low';
+    riskIcon = '✅';
+    riskTitle = '低風險，但仍需留意';
+    riskDesc = '目前特徵較少，風險相對低。但詐騙手法不斷演變，保持謹慎是對的。';
+    riskAction = '繼續保持警覺，遇到任何要求匯款或個資的情況都先確認。';
+  } else {
+    riskClass = 'risk-low';
+    riskIcon = '✅';
+    riskTitle = '未發現明顯風險特徵';
+    riskDesc = '你目前勾選的特徵與已知詐騙手法不符，相對安全。但詐騙手法日新月異，保持警覺永遠是對的。';
+    riskAction = '繼續保持警覺，可參考「詐騙手法圖鑑」了解更多手法。';
+  }
+
+  const resultDiv = document.getElementById('fraud-check-result');
+  resultDiv.style.display = 'block';
+  resultDiv.innerHTML = `
+    <div class="risk-card ${riskClass}">
+      <div style="font-size:32px;margin-bottom:8px">${riskIcon}</div>
+      <div class="risk-label">${riskTitle}</div>
+      <div style="font-size:13px;margin-top:8px;line-height:1.7;color:var(--slate)">${riskDesc}</div>
+      <div class="warning-box mt12" style="background:white;border-color:currentColor">
+        🆘 <strong>建議行動：</strong>${riskAction}
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <button class="btn btn-teal" onclick="showPage('page-fraud-response')">📋 查看遭詐後應對步驟</button>
+    </div>`;
+
+  resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function buildFraudResponse() {
+  const container = document.getElementById('fraud-response-content');
+  if (!container) return;
+  container.innerHTML = `
+    <div class="fraud-header" style="padding:18px 20px">
+      <div class="fh-tag">🚨 緊急應對指南</div>
+      <h3>遭詐後 72 小時黃金處理流程</h3>
+      <div class="fh-sub">越快行動，越有機會止損或追回</div>
+    </div>
+
+    <div class="info-block mt16">
+      <div class="info-block-title">
+        <div class="ib-ic" style="background:var(--fraud-lt)">1️⃣</div>
+        <span>立即停止一切轉帳（0~1小時）</span>
+      </div>
+      <div class="info-content">
+        <ul>
+          <li><strong>馬上停止</strong>所有與對方的金錢往來</li>
+          <li>不論對方說什麼理由，<strong>不再轉出任何金額</strong></li>
+          <li>如尚未轉帳，<strong>直接封鎖並報案</strong></li>
+          <li>通知家人，不要獨自面對</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic" style="background:var(--fraud-lt)">2️⃣</div>
+        <span>撥打 165 反詐騙專線（越快越好）</span>
+      </div>
+      <div class="info-content">
+        <ul>
+          <li>告知已匯款金額、對方帳號、匯款時間</li>
+          <li>165 可協助通知銀行凍結<strong>受款帳戶</strong>（24小時內成功率較高）</li>
+          <li>保留完整通話紀錄以便後續使用</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic" style="background:var(--fraud-lt)">3️⃣</div>
+        <span>聯繫你的銀行（1小時內）</span>
+      </div>
+      <div class="info-content">
+        <ul>
+          <li>撥打銀行客服電話，說明遭到詐騙</li>
+          <li>請求凍結你自己的帳戶（避免後續盜刷）</li>
+          <li>若信用卡資料已外洩，申請停卡補發</li>
+          <li>請求銀行協助追蹤匯款流向</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic" style="background:var(--teal-lt)">4️⃣</div>
+        <span>蒐集證據，前往報案（24小時內）</span>
+      </div>
+      <div class="info-content">
+        <ul>
+          <li>截圖保存所有<strong>對話紀錄</strong>（LINE、簡訊、Email）</li>
+          <li>保留<strong>匯款憑證</strong>（ATM 明細、銀行轉帳收據）</li>
+          <li>記錄對方<strong>帳號、電話、LINE ID、網址</strong>等資訊</li>
+          <li>到<strong>最近的警察局</strong>報案，取得報案三聯單</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">
+        <div class="ib-ic" style="background:var(--teal-lt)">5️⃣</div>
+        <span>後續追索與心理支持</span>
+      </div>
+      <div class="info-content">
+        <ul>
+          <li>可向<strong>法律扶助基金會（412-8518）</strong>諮詢民事追償</li>
+          <li>若個資外洩，向<strong>各平台申請帳號保護</strong>，並向個資保護委員會通報</li>
+          <li>遭詐騙造成的精神壓力很正常，可撥打 <strong>1925 社會安全網</strong>尋求支持</li>
+          <li>與家人坦誠說明，共同面對比獨自承擔更有力量</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      ⚠️ <strong>常見誤區，請避免：</strong>
+      <ul style="margin-top:8px;padding-left:18px;font-size:12px;line-height:2">
+        <li>「繼續投入才能回本」→ 這是詐騙常用話術，錢只會繼續損失</li>
+        <li>「不好意思跟家人說」→ 詐騙不是你的錯，越早讓人知道越好</li>
+        <li>「等幾天再說」→ 24小時是追回資金的黃金期，不要等</li>
+      </ul>
+    </div>
+
+    <div class="card mt16" style="padding:16px 20px">
+      <div style="font-size:13px;font-weight:900;color:var(--navy);margin-bottom:10px">🆘 緊急求助管道</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;color:var(--slate);line-height:1.7">
+        <div>📞 <strong style="color:var(--fraud)">165</strong><br>反詐騙專線（24h）</div>
+        <div>📞 <strong>110</strong><br>警察報案</div>
+        <div>📞 <strong>412-8518</strong><br>法律扶助基金會</div>
+        <div>📞 <strong>1925</strong><br>社會安全網（心理支持）</div>
+      </div>
+    </div>`;
+}
+
 // ─── Init ────────────────────────────────────────────────────
 buildCatGrid();
+buildFraudTypesList();
+buildFraudChecklist();
+buildFraudResponse();
 renderFAQ('');
 buildChecklist();
 </script>
